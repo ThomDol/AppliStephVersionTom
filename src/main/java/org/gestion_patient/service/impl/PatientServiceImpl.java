@@ -44,7 +44,7 @@ public class PatientServiceImpl implements PatientService {
         Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
         TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
         Profession profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());
-        Medecintraitant medecintraitant = medecintraitantRepository.findByNomMedecinTraitantAndPrenomMedecinTraitant(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));
+        Medecintraitant medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));
         //Persisitence du patient ds la base de données
         Praticienconnecte praticienconnecte = praticienconnecteRepository.findById(idPraticienConnecte).orElseThrow(() -> new ResourceNotFoundException("Praticien not found with given Id" + idPraticienConnecte));
         Patient patientTSave = PatientMapper.mapToPatient(patientDto, lieu, genre, profession, typePatient, medecintraitant, savedPersonne, praticienconnecte);
@@ -91,7 +91,7 @@ public class PatientServiceImpl implements PatientService {
         if(upadtedPatientDto.getCodePostal()!=null && upadtedPatientDto.getNomVille()!=null){
         patientToUpdate.setVille(lieuRepository.findByNomVilleAndCodePostal(upadtedPatientDto.getNomVille(),upadtedPatientDto.getCodePostal()));}
         if(upadtedPatientDto.getNomProfession()!=null){patientToUpdate.setProfession(professionRepository.findByLibelleProfession(upadtedPatientDto.getNomProfession()));}
-        if(upadtedPatientDto.getNomMedecinTraitant()!=null && upadtedPatientDto.getPrenomMedecinTraitant()!=null){patientToUpdate.setMedecinTraitant(medecintraitantRepository.findByNomMedecinTraitantAndPrenomMedecinTraitant(Crypto.cryptService(upadtedPatientDto.getNomMedecinTraitant()),Crypto.cryptService(upadtedPatientDto.getPrenomMedecinTraitant())));}
+        if(upadtedPatientDto.getNomMedecinTraitant()!=null && upadtedPatientDto.getPrenomMedecinTraitant()!=null){patientToUpdate.setMedecinTraitant(medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(upadtedPatientDto.getNomMedecinTraitant()),Crypto.cryptService(upadtedPatientDto.getPrenomMedecinTraitant())));}
 
         return PatientMapper.mapToPatientDto(patientRepository.save(patientToUpdate));
     }

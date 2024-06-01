@@ -18,10 +18,10 @@ public class Medecintraitant {
     @Column(name = "id_medecin_traitant", nullable = false)
     private int idMedecinTraitant;
 
-    @Column(name = "nom_medecin_traitant", nullable = false, length = 80)
-    private String nomMedecinTraitant;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_identite", nullable = false)
+    private Personne identiteDoc;
 
-    @Column(name = "prenom_medecin_traitant", nullable = false, length = 80)
-    private String prenomMedecinTraitant;
+
 
 }

@@ -1,0 +1,45 @@
+package org.gestion_patient.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "physique")
+public class Physique {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPhysique", nullable = false)
+    private int idPhysique;
+
+    @Column(name = "poids", nullable = true)
+    private Float poids;
+
+    @Column(name = "taille", nullable = true)
+    private Float taille;
+
+    @Column(name = "droitier", nullable = true)
+    private Boolean droitier;
+
+    @Column(name = "lunettes", nullable = true)
+    private Boolean lunettes;
+
+    @Column(name = "dentaire", nullable = true)
+    private Boolean dentaire;
+
+    @Column(name = "date_mesure", nullable = false)
+    private String dateMesure;
+
+    @ManyToMany(mappedBy = "physiqueList")
+    private List<Patient> patientList = new ArrayList<>();
+}

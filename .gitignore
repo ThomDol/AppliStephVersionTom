@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorer Data.java
+src/main/java/org/gestion_patient/Data/Data.java

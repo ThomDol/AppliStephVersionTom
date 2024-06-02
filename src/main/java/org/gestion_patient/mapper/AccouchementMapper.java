@@ -21,9 +21,9 @@ public class AccouchementMapper {
                 displayString(accouchement.getComplication()),
                 displayBoolean(accouchement.getEpisiotomie()),
                 displayBoolean(accouchement.getDechirure()),
-                displayBoolean(accouchement.getReeducationPerinee()),
                 displayString(accouchement.getPresentationAAccouchement()),
                 displayInt(accouchement.getAgeDateAccouchement()),
+                displayString(accouchement.getNotesDiverses()),
                 accouchement.getPatient().getIdPatient()
         );
     }
@@ -43,9 +43,9 @@ public class AccouchementMapper {
                 displayString(accouchementDto.getComplication()),
                 displayBoolean(accouchementDto.getEpisiotomie()),
                 displayBoolean(accouchementDto.getDechirure()),
-                displayBoolean(accouchementDto.getReeducationPerinee()),
                 displayString(accouchementDto.getPresentationAAccouchement()),
                 displayInt(accouchementDto.getAgeDateAccouchement()),
+                displayString(accouchementDto.getNotesDiverses()),
                 patient
         );
     }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -14,6 +15,15 @@ import java.util.List;
 @RequestMapping("/praticien")
 public class PraticienConnecteController {
     private PraticienConnecteService praticienConnecteService;
+
+
+
+    @GetMapping("/profile")
+    public ResponseEntity<PraticienconnecteDto> profile (Principal principal) throws Exception {
+        PraticienconnecteDto praticienconnecteDto = praticienConnecteService.loadByEmail(principal.getName());
+        return new ResponseEntity<>(praticienconnecteDto, HttpStatus.OK);
+    }
+
 
     @PostMapping
     public ResponseEntity<PraticienconnecteDto> createNewPraticien(@RequestBody PraticienconnecteDto praticienconnecteDto) throws Exception {

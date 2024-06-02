@@ -96,6 +96,10 @@ public class PraticienConnecteServiceImpl implements PraticienConnecteService {
             personne.setNom(Crypto.cryptService(praticienconnecteDto.getNomPraticienConnecte()));
             praticienconnecte.setIdentite(personne);
             personneRepository.save(personne);}
+        if(praticienconnecteDto.getPrenomPraticienConnecte()!=null){
+            personne.setPrenom(Crypto.cryptService(praticienconnecteDto.getPrenomPraticienConnecte()));
+            praticienconnecte.setIdentite(personne);
+            personneRepository.save(personne);}
         if(praticienconnecteDto.getEmail()!=null){
             personne.setEmail(Crypto.cryptService(praticienconnecteDto.getEmail()));
             praticienconnecte.setIdentite(personne);

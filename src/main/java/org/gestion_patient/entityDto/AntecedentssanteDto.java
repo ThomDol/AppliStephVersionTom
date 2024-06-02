@@ -1,13 +1,11 @@
 package org.gestion_patient.entityDto;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.gestion_patient.entity.Patient;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter

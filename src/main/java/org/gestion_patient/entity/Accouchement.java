@@ -59,14 +59,14 @@ public class Accouchement {
     @Column(name = "dechirure", nullable = true)
     private Boolean dechirure;
 
-    @Column(name = "reeducation_perinee", nullable = true)
-    private Boolean reeducationPerinee;
-
     @Column(name = "presentation_a_accouchement", nullable = true, length = 100)
     private String presentationAAccouchement;
 
     @Column(name = "age_date_accouchement", nullable = true)
     private Integer ageDateAccouchement;
+
+    @Column(name = "notes_diverses", nullable = true, length = 200)
+    private String notesDiverses;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_patient", nullable = false)

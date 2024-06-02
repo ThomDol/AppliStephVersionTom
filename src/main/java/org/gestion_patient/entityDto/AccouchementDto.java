@@ -29,9 +29,9 @@ public class AccouchementDto {
     private String complication;
     private Boolean episiotomie ;
     private Boolean dechirure ;
-    private Boolean reeducationPerinee ;
     private String presentationAAccouchement;
     private Integer ageDateAccouchement;
+    private String notesDiverses;
     private int idPatient;
 
 

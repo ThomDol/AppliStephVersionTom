@@ -40,11 +40,17 @@ public class PatientServiceImpl implements PatientService {
         personne.setEmail(Crypto.cryptService(patientDto.getEmail()));
         Personne savedPersonne = personneRepository.save(personne);
         //Lieu , genre, typePatient,profession, et medecinTraitant seront récupérés dans le front et crée si pas encore enregistrés avant soumission de cette requête
-        Lieu lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());
+        Lieu lieu = new Lieu();
+        Profession profession = new Profession();
+        Medecintraitant medecintraitant = new Medecintraitant();
+        if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());}
+        else{lieu = null;}
         Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
         TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
-        Profession profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());
-        Medecintraitant medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));
+        if(patientDto.getNomProfession()!=null){profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());}
+        else{profession =null;}
+        if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));}
+        else{medecintraitant=null;}
         //Persisitence du patient ds la base de données
         Praticienconnecte praticienconnecte = praticienconnecteRepository.findById(idPraticienConnecte).orElseThrow(() -> new ResourceNotFoundException("Praticien not found with given Id" + idPraticienConnecte));
         Patient patientTSave = PatientMapper.mapToPatient(patientDto, lieu, genre, profession, typePatient, medecintraitant, savedPersonne, praticienconnecte);

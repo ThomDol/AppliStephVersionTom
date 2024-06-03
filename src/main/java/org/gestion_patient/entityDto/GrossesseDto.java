@@ -14,6 +14,7 @@ import lombok.Setter;
 public class GrossesseDto {
 
     private int idGrossesse;
+    private String dateCreation;
     private String maternite;
     private Boolean grossesseMultiple;
     private String douleursPendantGrossesse;

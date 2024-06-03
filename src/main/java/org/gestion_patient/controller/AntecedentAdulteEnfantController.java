@@ -2,16 +2,14 @@ package org.gestion_patient.controller;
 
 import lombok.AllArgsConstructor;
 import org.gestion_patient.entityDto.AntecedentAdulteEnfantDto;
-import org.gestion_patient.entityDto.AntecedentBebeDto;
 import org.gestion_patient.service.AntecedentAdulteEnfantService;
-import org.gestion_patient.service.AntecedentBebeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/antecedentadulteenfant")
+@RequestMapping("/antecedent")
 public class AntecedentAdulteEnfantController {
     private AntecedentAdulteEnfantService antecedentAdulteEnfantServiceService;
 

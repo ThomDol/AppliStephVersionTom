@@ -8,6 +8,7 @@ public class GrossesseMapper {
     public static GrossesseDto mapToGrossesseDto(Grossesse grossesse) {
         return new GrossesseDto(
                 grossesse.getIdGrossesse(),
+                grossesse.getDateCreation(),
                 grossesse.getMaternite(),
                 displayBoolean(grossesse.getGrossesseMultiple()),
                 displayString(grossesse.getDouleursPendantGrossesse()),
@@ -32,6 +33,7 @@ public class GrossesseMapper {
     public static Grossesse mapToGrossesse (GrossesseDto grossesseDto, Patient patient){
         return new Grossesse(
                 grossesseDto.getIdGrossesse(),
+                grossesseDto.getDateCreation(),
                 grossesseDto.getMaternite(),
                 displayBoolean(grossesseDto.getGrossesseMultiple()),
                 displayString(grossesseDto.getDouleursPendantGrossesse()),

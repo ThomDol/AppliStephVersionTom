@@ -21,7 +21,7 @@ public class AntecedentAdulteEnfant {
     @Column(name = "id_antecedents", nullable = false)
     private int idAntecedentAdulteEnfant;
 
-    @Column(name = "date_creation", nullable = false)
+    @Column(name = "date_creation", nullable = false,length=10)
     private String dateCreation;
 
     @Column(name = "date_update", nullable = true)

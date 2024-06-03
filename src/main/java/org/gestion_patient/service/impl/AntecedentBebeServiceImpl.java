@@ -24,8 +24,6 @@ public class AntecedentBebeServiceImpl implements AntecedentBebeService {
     @Override
     public AntecedentBebeDto create(AntecedentBebeDto antecedentBebeDto, int idPatient) {
         Patient patient = patientRepository.findById(idPatient).orElseThrow(()->new ResourceNotFoundException("Patient with id"+idPatient+" doesn't exist"));
-        List<AntecedentBebe> antecedentBebeList = antecedentBebeRepository.findAll();
-        if(antecedentBebeList!=null){throw  new RessourceAlreadyexistsException("Un seul antecedent possible");}
         AntecedentBebe antecedentBebe = AntecedentBebeMapper.mapToAntecedentBebe(antecedentBebeDto,patient);
         return AntecedentBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeRepository.save(antecedentBebe));
     }

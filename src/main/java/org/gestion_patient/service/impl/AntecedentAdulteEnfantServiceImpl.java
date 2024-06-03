@@ -25,8 +25,6 @@ public class AntecedentAdulteEnfantServiceImpl implements AntecedentAdulteEnfant
     @Override
     public AntecedentAdulteEnfantDto create(AntecedentAdulteEnfantDto antecedentAdulteEnfantDto, int idPatient) throws Exception {
         Patient patient = patientRepository.findById(idPatient).orElseThrow(()->new ResourceNotFoundException("Patient with id"+idPatient+" doesn't exist"));
-        List<AntecedentAdulteEnfant> antecedentAdultEnfantList = antecedentAdulteEnfantRepository.findAll();
-        if(antecedentAdultEnfantList!=null){throw  new RessourceAlreadyexistsException("Un seul antecedent possible");}
         AntecedentAdulteEnfant antecedentAdulteEnfant = AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfant(antecedentAdulteEnfantDto,patient);
         return AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfantDto(antecedentAdulteEnfantRepository.save(antecedentAdulteEnfant));
     }

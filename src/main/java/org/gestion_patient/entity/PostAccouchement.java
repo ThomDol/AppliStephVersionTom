@@ -18,6 +18,10 @@ public class PostAccouchement {
     @Column(name = "id_grossesse_postpartum", nullable = false)
     private int idGrossessePostPartum;
 
+    @Column(name = "date_creation", nullable = false, length = 10)
+    private String dateCreation;
+
+
     @Column(name = "qualite_someil", nullable = true, length = 100)
     private String qualiteSommeil;
 

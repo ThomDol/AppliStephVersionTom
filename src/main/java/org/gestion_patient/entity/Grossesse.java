@@ -18,6 +18,9 @@ public class Grossesse {
     @Column(name = "id_grossesse", nullable = false)
     private int idGrossesse;
 
+    @Column(name = "date_creation", nullable = false, length = 10)
+    private String dateCreation;
+
     @Column(name = "maternite", nullable = true, length = 100)
     private String maternite;
 

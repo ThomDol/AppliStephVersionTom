@@ -11,6 +11,7 @@ public class PostAccouchementMapper {
     public static PostAccouchementDto mapToPostAccouchementDto(PostAccouchement postAccouchement) {
         return new PostAccouchementDto(
                 postAccouchement.getIdGrossessePostPartum(),
+                postAccouchement.getDateCreation(),
                 DataUtil.displayString(postAccouchement.getQualiteSommeil()),
                 DataUtil.displayBoolean(postAccouchement.getReeducationPerinee()),
                 DataUtil.displayString(postAccouchement.getInstabiliteVesicale()),
@@ -25,6 +26,7 @@ public class PostAccouchementMapper {
     public static PostAccouchement mapToPostAccouchement(PostAccouchementDto postAccouchementDto, Accouchement accouchement) {
         return new PostAccouchement(
                 postAccouchementDto.getIdGrossessePostPartum(),
+                postAccouchementDto.getDateCreation(),
                 DataUtil.displayString(postAccouchementDto.getQualiteSommeil()),
                 DataUtil.displayBoolean(postAccouchementDto.getReeducationPerinee()),
                 DataUtil.displayString(postAccouchementDto.getInstabiliteVesicale()),

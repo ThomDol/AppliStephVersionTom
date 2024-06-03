@@ -23,5 +23,4 @@ public class Medecintraitant {
     private Personne identiteDoc;
 
 
-
 }

@@ -43,7 +43,7 @@ public class PostAccouchementServiceImpl implements PostAccouchementService {
     }
 
     @Override
-    public PostAccouchementDto getByidAccouchement(int id) {
+    public PostAccouchementDto getByIdAccouchement(int id) {
         PostAccouchement postAccouchement = postAccouchementRepository.findByAccouchementIdAccouchement(id);
         if(postAccouchement!=null){
             return PostAccouchementMapper.mapToPostAccouchementDto(postAccouchement);

@@ -27,8 +27,14 @@ public class PostAccouchementController {
 
     @GetMapping("{idAccouchement}")
     public ResponseEntity<PostAccouchementDto> getPostAccouchementByIdAccouchement(@PathVariable int idAccouchement) {
-        PostAccouchementDto postAccouchementDto  = postAccouchementService.getByidAccouchement(idAccouchement);
+        PostAccouchementDto postAccouchementDto  = postAccouchementService.getByIdAccouchement(idAccouchement);
         return new ResponseEntity<>(postAccouchementDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/{idPostAccouchement}")
+    public ResponseEntity<PostAccouchementDto> updatePostAccouchement (@PathVariable int idPostAccouchement,@RequestBody PostAccouchementDto postAccouchementDto){
+        PostAccouchementDto postAccouchementDtoUpdated = postAccouchementService.update(idPostAccouchement,postAccouchementDto);
+        return new ResponseEntity<>(postAccouchementDtoUpdated, HttpStatus.OK);
     }
 
 }

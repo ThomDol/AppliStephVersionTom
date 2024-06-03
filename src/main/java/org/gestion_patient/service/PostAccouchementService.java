@@ -5,6 +5,6 @@ import org.gestion_patient.entityDto.PostAccouchementDto;
 public interface PostAccouchementService {
     PostAccouchementDto create(PostAccouchementDto postAccouchementDto, int idPatient) ;
     PostAccouchementDto update(int id,PostAccouchementDto postAccouchementDtoUpdated) ;
-    PostAccouchementDto getByidAccouchement(int id) ;
+    PostAccouchementDto getByIdAccouchement(int id) ;
     PostAccouchementDto getById (int id);
 }

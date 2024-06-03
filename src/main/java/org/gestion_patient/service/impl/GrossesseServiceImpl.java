@@ -1,20 +1,17 @@
 package org.gestion_patient.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.gestion_patient.entity.AntecedentBebe;
-import org.gestion_patient.entity.Antecedentssante;
 import org.gestion_patient.entity.Grossesse;
 import org.gestion_patient.entity.Patient;
 import org.gestion_patient.entityDto.GrossesseDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
-import org.gestion_patient.mapper.AntecedentBebeMapper;
-import org.gestion_patient.mapper.AntecedentsanteMapper;
 import org.gestion_patient.mapper.GrossesseMapper;
-import org.gestion_patient.repository.AntecedentssanteRepository;
 import org.gestion_patient.repository.GrossesseRepository;
 import org.gestion_patient.repository.PatientRepository;
 import org.gestion_patient.service.GrossesseService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -32,7 +29,7 @@ public class GrossesseServiceImpl implements GrossesseService {
 
     @Override
     public GrossesseDto update(int idToUpdate, GrossesseDto grossesseDto) {
-        Grossesse grossesseToUpdate = grossesseRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("Antecedent with id"+idToUpdate+" doesn't exist"));
+        Grossesse grossesseToUpdate = grossesseRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("Grossesse with id"+idToUpdate+" doesn't exist"));
         if(grossesseDto.getMaternite()!=null){grossesseToUpdate.setMaternite(grossesseDto.getMaternite());}
         if(grossesseDto.getGrossesseMultiple()!=null){grossesseToUpdate.setGrossesseMultiple(grossesseDto.getGrossesseMultiple());}
         if(grossesseDto.getDouleursPendantGrossesse()!=null){grossesseToUpdate.setDouleursPendantGrossesse(grossesseDto.getDouleursPendantGrossesse());}
@@ -58,11 +55,16 @@ public class GrossesseServiceImpl implements GrossesseService {
     }
 
     @Override
-    public GrossesseDto getByidPatient(int id) {
-        Grossesse grossesse = grossesseRepository.findByPatientIdPatient(id);
-        if(grossesse!=null){
-            return GrossesseMapper.mapToGrossesseDto(grossesse);
+    public List<GrossesseDto> getAllByidPatient(int idPatient) {
+        List<Grossesse> grossesses = grossesseRepository.findByPatientIdPatient(idPatient);
+        return grossesses.stream().map(GrossesseMapper::mapToGrossesseDto).toList();
         }
-        else{return null;}
+
+    @Override
+    public GrossesseDto getById(int id) {
+        Grossesse grossesse = grossesseRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Grossesse with id"+id+" doesn't exist"));
+        return GrossesseMapper.mapToGrossesseDto(grossesse);
     }
+
+
 }

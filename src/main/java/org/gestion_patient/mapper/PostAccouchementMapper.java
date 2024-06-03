@@ -8,7 +8,7 @@ import org.gestion_patient.entityDto.PostAccouchementDto;
 
 public class PostAccouchementMapper {
 
-    public static PostAccouchementDto mapToGrossessePostPartumDto(PostAccouchement postAccouchement) {
+    public static PostAccouchementDto mapToPostAccouchementDto(PostAccouchement postAccouchement) {
         return new PostAccouchementDto(
                 postAccouchement.getIdGrossessePostPartum(),
                 DataUtil.displayString(postAccouchement.getQualiteSommeil()),
@@ -22,7 +22,7 @@ public class PostAccouchementMapper {
                 postAccouchement.getAccouchement().getIdAccouchement());
     }
 
-    public static PostAccouchement mapToGrossessePostPartum(PostAccouchementDto postAccouchementDto, Accouchement accouchement) {
+    public static PostAccouchement mapToPostAccouchement(PostAccouchementDto postAccouchementDto, Accouchement accouchement) {
         return new PostAccouchement(
                 postAccouchementDto.getIdGrossessePostPartum(),
                 DataUtil.displayString(postAccouchementDto.getQualiteSommeil()),

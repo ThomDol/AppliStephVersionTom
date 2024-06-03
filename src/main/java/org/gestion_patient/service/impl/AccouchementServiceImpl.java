@@ -71,9 +71,6 @@ public class AccouchementServiceImpl implements AccouchementService {
         if (accouchementDto.getDechirure() != null) {
             accouchementToUpdate.setDechirure(accouchementDto.getDechirure());
         }
-        if (accouchementDto.getReeducationPerinee() != null) {
-            accouchementToUpdate.setReeducationPerinee(accouchementDto.getReeducationPerinee());
-        }
         if (accouchementDto.getPresentationAAccouchement() != null) {
             accouchementToUpdate.setPresentationAAccouchement(accouchementDto.getPresentationAAccouchement());
         }

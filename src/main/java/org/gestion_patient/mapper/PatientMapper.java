@@ -5,14 +5,14 @@ import org.gestion_patient.entity.*;
 import org.gestion_patient.entityDto.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class PatientMapper {
     public static PatientDto mapToPatientDto (Patient patient) throws Exception {
-        List<RendezvousDto> rendezvousDtos = patient.getRendezvousList().stream()
-                .map(rendezvousDto-> {
+        List<RendezvousDto> rendezvousList = patient.getRendezvousList().stream()
+                .map(rendezvous-> {
                     try {
-                        return RendezvousMapper.mapToRendezvousDto(rendezvousDto);
+                        return RendezvousMapper.mapToRendezvousDto(rendezvous);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -24,14 +24,22 @@ public class PatientMapper {
         List<SportDto> sportDtos = patient.getSportList().stream()
                 .map(SportMapper::mapToSportDto).toList();
 
-        List<AntecedentssanteDto> antecedentList = patient.getAntecedentssantesList().stream()
-                .map(antecedentDto-> {
+        List<AntecedentAdulteEnfantDto> antecedentAdulteEnfantList = patient.getAntecedentAdulteEnfantList().stream()
+                .map(antecedent-> {
                     try {
-                        return AntecedentsanteMapper.mapToAntecedentssanteDto(antecedentDto);
+                        return AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfantDto(antecedent);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }).toList();
+
+        List<AntecedentBebeDto> antecedentBebeList = patient.getAntecedentBebeList().stream()
+                .map(AntecedentBebeMapper::mapToAntecedentssanteBebeDto).toList();
+
+
+        List<GrossesseDto> grossesseList = patient.getGrossesseList().stream()
+                .map(GrossesseMapper::mapToGrossesseDto).toList();
+
 
         List<AccouchementDto> accouchementList = patient.getAccouchementList().stream()
                 .map(AccouchementMapper::mapToAccouchementDto).toList();
@@ -51,11 +59,13 @@ public class PatientMapper {
                 Crypto.decryptService(patient.getIdentite().getNom()),
                 Crypto.decryptService(patient.getIdentite().getPrenom()),
                 Crypto.decryptService(patient.getIdentite().getEmail()),
-                rendezvousDtos,
-                antecedentList,
+                antecedentBebeList,
+                antecedentAdulteEnfantList,
+                grossesseList,
                 accouchementList,
                 physiqueDtos,
-                sportDtos
+                sportDtos,
+                rendezvousList
         );
     }
     public static Patient mapToPatient(PatientDto patientDto, Lieu lieu, Genre genre , Profession profession , TypePatient typePatient , Medecintraitant medecintraitant , Personne personne, Praticienconnecte praticienconnecte) throws Exception {
@@ -71,16 +81,40 @@ public class PatientMapper {
         patient.setIdentite(personne);
         patient.setPraticien(praticienconnecte);
 
-        if (patientDto.getRendezvousList() != null) {
-            List<Rendezvous> rendezvousList = patientDto.getRendezvousList().stream()
-                    .map(rendezvousDto-> {
+
+
+        if (patientDto.getAntecedentBebeList() != null) {
+            List<AntecedentBebe> antecedentBebeList = patientDto.getAntecedentBebeList().stream()
+                    .map(accouchementDto->AntecedentBebeMapper.mapToAntecedentBebe(accouchementDto,patient)).toList();
+            patient.setAntecedentBebeList(antecedentBebeList);
+        }
+
+        if (patientDto.getAntecedentAdulteEnfantList() != null) {
+            List<AntecedentAdulteEnfant> antecedentAdulteEnfantList = patientDto.getAntecedentAdulteEnfantList().stream()
+                    .map(antecedentDto-> {
                         try {
-                            return RendezvousMapper.maptoRendezvous(rendezvousDto,patient);
+                            return AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfant(antecedentDto,patient);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                     }).toList();
-        patient.setRendezvousList(rendezvousList);}
+            patient.setAntecedentAdulteEnfantList(antecedentAdulteEnfantList);
+        }
+
+
+
+        if (patientDto.getGrossesseList() != null) {
+            List<Grossesse> grossesseList = patientDto.getGrossesseList().stream()
+                    .map(accouchementDto->GrossesseMapper.mapToGrossesse(accouchementDto,patient)).toList();
+            patient.setGrossesseList(grossesseList);
+        }
+
+
+        if (patientDto.getAccouchementList() != null) {
+            List<Accouchement> accouchementList = patientDto.getAccouchementList().stream()
+                    .map(accouchementDto->AccouchementMapper.mapToAccouchement(accouchementDto,patient)).toList();
+            patient.setAccouchementList(accouchementList);
+        }
 
         if (patientDto.getPhysiqueList() != null) {
             List<Physique> physiqueList = patientDto.getPhysiqueList().stream()
@@ -94,23 +128,16 @@ public class PatientMapper {
             patient.setSportList(sportList);
         }
 
-        if (patientDto.getAntecedentList() != null) {
-            List<Antecedentssante> antecedentList = patientDto.getAntecedentList().stream()
-                    .map(antecedentDto-> {
+        if (patientDto.getRendezvousList() != null) {
+            List<Rendezvous> rendezvousList = patientDto.getRendezvousList().stream()
+                    .map(rendezvousDto-> {
                         try {
-                            return AntecedentsanteMapper.mapToAntecedentssante(antecedentDto,patient);
+                            return RendezvousMapper.maptoRendezvous(rendezvousDto,patient);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                     }).toList();
-            patient.setAntecedentssantesList(antecedentList);
-        }
-
-        if (patientDto.getAccouchementList() != null) {
-            List<Accouchement> accouchementList = patientDto.getAccouchementList().stream()
-                    .map(accouchementDto->AccouchementMapper.mapToAccouchement(accouchementDto,patient)).toList();
-            patient.setAccouchementList(accouchementList);
-        }
+            patient.setRendezvousList(rendezvousList);}
 
 
 

@@ -6,11 +6,14 @@ import org.gestion_patient.entity.AntecedentBebe;
 import org.gestion_patient.entity.Patient;
 import org.gestion_patient.entityDto.AntecedentBebeDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
+import org.gestion_patient.exception.RessourceAlreadyexistsException;
 import org.gestion_patient.mapper.AntecedentBebeMapper;
 import org.gestion_patient.repository.AntecedentBebeRepository;
 import org.gestion_patient.repository.PatientRepository;
 import org.gestion_patient.service.AntecedentBebeService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -21,6 +24,8 @@ public class AntecedentBebeServiceImpl implements AntecedentBebeService {
     @Override
     public AntecedentBebeDto create(AntecedentBebeDto antecedentBebeDto, int idPatient) {
         Patient patient = patientRepository.findById(idPatient).orElseThrow(()->new ResourceNotFoundException("Patient with id"+idPatient+" doesn't exist"));
+        List<AntecedentBebe> antecedentBebeList = antecedentBebeRepository.findAll();
+        if(antecedentBebeList!=null){throw  new RessourceAlreadyexistsException("Un seul antecedent possible");}
         AntecedentBebe antecedentBebe = AntecedentBebeMapper.mapToAntecedentBebe(antecedentBebeDto,patient);
         return AntecedentBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeRepository.save(antecedentBebe));
     }

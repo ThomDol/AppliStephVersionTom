@@ -20,24 +20,24 @@ public class AccouchementController {
 
     @PostMapping("/{idPatient}")
     public ResponseEntity<AccouchementDto> createAccouchement(@RequestBody AccouchementDto accouchementDto,@PathVariable int idPatient ) {
-        AccouchementDto createAccouchement = accouchementService.create(accouchementDto,idPatient);
-        return new ResponseEntity<>(createAccouchement, HttpStatus.CREATED);
+        AccouchementDto accouchementDtoCreated = accouchementService.create(accouchementDto,idPatient);
+        return new ResponseEntity<>(accouchementDtoCreated, HttpStatus.CREATED);
     }
     @GetMapping("{idAccouchement}")
     public ResponseEntity<AccouchementDto> getAccouchementById(@PathVariable int idAccouchement) {
-        AccouchementDto accouchements = accouchementService.getByIdAccouchement(idAccouchement);
-        return new ResponseEntity<>(accouchements, HttpStatus.OK);
+        AccouchementDto accouchementDto = accouchementService.getByIdAccouchement(idAccouchement);
+        return new ResponseEntity<>(accouchementDto, HttpStatus.OK);
     }
     @GetMapping("patient/{idPatient}")
     public ResponseEntity<List<AccouchementDto>> getAllAccouchementByPatientId(@PathVariable int idPatient)  {
-        List<AccouchementDto> listAccouchement = accouchementService.getAllByIdPatient(idPatient);
-        return new ResponseEntity<>(listAccouchement, HttpStatus.OK);
+        List<AccouchementDto> accouchementList = accouchementService.getAllByIdPatient(idPatient);
+        return new ResponseEntity<>(accouchementList, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateAccouchement (@PathVariable int id,@RequestBody AccouchementDto accouchementDto){
-        accouchementService.update(id,accouchementDto);
-        return new ResponseEntity<>("Accouchement updated with success",HttpStatus.OK);
+    public ResponseEntity<AccouchementDto> updateAccouchement (@PathVariable int id,@RequestBody AccouchementDto accouchementDto){
+        AccouchementDto accouchementDtoUpdated = accouchementService.update(id,accouchementDto);
+        return new ResponseEntity<>(accouchementDtoUpdated,HttpStatus.OK);
     }
 
 

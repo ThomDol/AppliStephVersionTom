@@ -3,16 +3,18 @@ package org.gestion_patient.service.impl;
 import lombok.AllArgsConstructor;
 import org.gestion_patient.crypto.Crypto;
 import org.gestion_patient.entity.AntecedentAdulteEnfant;
-import org.gestion_patient.entity.Antecedentssante;
+import org.gestion_patient.entity.AntecedentBebe;
 import org.gestion_patient.entity.Patient;
 import org.gestion_patient.entityDto.AntecedentAdulteEnfantDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
+import org.gestion_patient.exception.RessourceAlreadyexistsException;
 import org.gestion_patient.mapper.AntecedentAdulteEnfantMapper;
-import org.gestion_patient.mapper.AntecedentsanteMapper;
 import org.gestion_patient.repository.AntecedentAdulteEnfantRepository;
 import org.gestion_patient.repository.PatientRepository;
 import org.gestion_patient.service.AntecedentAdulteEnfantService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,8 @@ public class AntecedentAdulteEnfantServiceImpl implements AntecedentAdulteEnfant
     @Override
     public AntecedentAdulteEnfantDto create(AntecedentAdulteEnfantDto antecedentAdulteEnfantDto, int idPatient) throws Exception {
         Patient patient = patientRepository.findById(idPatient).orElseThrow(()->new ResourceNotFoundException("Patient with id"+idPatient+" doesn't exist"));
+        List<AntecedentAdulteEnfant> antecedentAdultEnfantList = antecedentAdulteEnfantRepository.findAll();
+        if(antecedentAdultEnfantList!=null){throw  new RessourceAlreadyexistsException("Un seul antecedent possible");}
         AntecedentAdulteEnfant antecedentAdulteEnfant = AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfant(antecedentAdulteEnfantDto,patient);
         return AntecedentAdulteEnfantMapper.mapToAntecedentAdulteEnfantDto(antecedentAdulteEnfantRepository.save(antecedentAdulteEnfant));
     }

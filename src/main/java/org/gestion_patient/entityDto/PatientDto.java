@@ -29,10 +29,12 @@ public class PatientDto {
     private String nomPatient ;
     private String prenomPatient ;
     private String email;
-    private List<RendezvousDto> rendezvousList;
-    private List<AntecedentssanteDto> antecedentList;
+    private List<AntecedentBebeDto> antecedentBebeList;
+    private List<AntecedentAdulteEnfantDto> antecedentAdulteEnfantList;
+    private List<GrossesseDto> grossesseList;
     private List<AccouchementDto> accouchementList;
     private List<PhysiqueDto> physiqueList;
     private List<SportDto> sportList;
+    private List<RendezvousDto> rendezvousList;
 }
 

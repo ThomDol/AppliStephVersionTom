@@ -8,7 +8,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.gestion_patient.Data.Data;
+import org.gestion_patient.entityDto.DataUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,7 +26,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if(authorizationToken!=null && authorizationToken.startsWith("Bearer")) {
             try {
                 String jwt=authorizationToken.substring(7);
-                Algorithm algorithm = Algorithm.HMAC256(Data.TokenKey);
+                Algorithm algorithm = Algorithm.HMAC256(DataUtil.TokenKey);
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(jwt);
                 String username = decodedJWT.getSubject();

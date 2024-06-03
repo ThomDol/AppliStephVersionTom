@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class GrossessePostPartum {
+public class PostAccouchement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grossesse_postpartum", nullable = false)
@@ -42,9 +42,10 @@ public class GrossessePostPartum {
     @Column(name = "infos_complementaires", nullable = true, length = 200)
     private String infosComplementaires;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_patient", nullable = false)
-    private Patient patient;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_accouchement", nullable = false)
+    private Accouchement accouchement;
+
 
 
 }

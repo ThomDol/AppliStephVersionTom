@@ -1,6 +1,7 @@
 package org.gestion_patient.crypto;
 
-import org.gestion_patient.Data.Data;
+
+import org.gestion_patient.entityDto.DataUtil;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -8,8 +9,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class Crypto {
-    private static final String SECRET_KEY = Data.KEY;
-    private static final String INIT_VECTOR = Data.IV;
+    private static final String SECRET_KEY = DataUtil.KEY;
+    private static final String INIT_VECTOR = DataUtil.IV;
 
     public static String cryptService(String input) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");

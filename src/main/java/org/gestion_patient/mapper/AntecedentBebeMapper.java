@@ -1,15 +1,14 @@
 package org.gestion_patient.mapper;
 
 import org.gestion_patient.entity.AntecedentBebe;
-import org.gestion_patient.entity.Antecedentssante;
 import org.gestion_patient.entity.Patient;
-import org.gestion_patient.entityDto.AnteceddentBebeDto;
-import org.gestion_patient.entityDto.AntecedentssanteDto;
+import org.gestion_patient.entityDto.AntecedentBebeDto;
+import org.gestion_patient.entityDto.DataUtil;
 
 public class AntecedentBebeMapper {
 
-        public static AnteceddentBebeDto mapToAntecedentssanteBebeDto (AntecedentBebe antecedentBebe)  {
-                return new AnteceddentBebeDto(
+        public static AntecedentBebeDto mapToAntecedentssanteBebeDto (AntecedentBebe antecedentBebe)  {
+                return new AntecedentBebeDto(
                         antecedentBebe.getIdAntecedentBebe(),
                         antecedentBebe.getDateCreation(),
                         displayString(antecedentBebe.getMaternite()),
@@ -37,33 +36,33 @@ public class AntecedentBebeMapper {
                         displayBoolean(antecedentBebe.getTics()),
                         antecedentBebe.getPatient().getIdPatient());
         }
-        public static AntecedentBebe mapToAntecedentBebe (AnteceddentBebeDto antecedentBebeDto, Patient patient){
+        public static AntecedentBebe mapToAntecedentBebe (AntecedentBebeDto antecedentBebeDto, Patient patient){
                 return new AntecedentBebe(
                         antecedentBebeDto.getIdAntecedentBebe(),
                         antecedentBebeDto.getDateCreation(),
-                        displayString(antecedentBebeDto.getMaternite()),
-                        displayFloat(antecedentBebeDto.getPerimetreCranien()),
-                        displayFloat(antecedentBebeDto.getApgar()),
-                        displayBoolean(antecedentBebeDto.getDepassementDeTerme()),
-                        displayBoolean(antecedentBebeDto.getPrematurite()),
-                        displayBoolean(antecedentBebeDto.getDeformationDuCrane()),
-                        displayBoolean(antecedentBebeDto.getBosseSeroSanguine()),
-                        displayBoolean(antecedentBebeDto.getCephalhematome()),
-                        displayBoolean(antecedentBebeDto.getParalysieObstetricaleDuPlexusBrachial()),
-                        displayBoolean(antecedentBebeDto.getParalysieFaciale()),
-                        displayBoolean(antecedentBebeDto.getFractureClavicule()),
-                        displayBoolean(antecedentBebeDto.getDysplasieHanche()),
-                        displayBoolean(antecedentBebeDto.getPlagiocephalie()),
-                        displayBoolean(antecedentBebeDto.getTorticolis()),
-                        displayBoolean(antecedentBebeDto.getRefluxGastroOesophagien()),
-                        displayBoolean(antecedentBebeDto.getColiques()),
-                        displayBoolean(antecedentBebeDto.getAllaitementMaternelle()),
-                        displayInt(antecedentBebeDto.getEfficaciteSuccion()),
-                        displayBoolean(antecedentBebeDto.getSucagePouce()),
-                        displayBoolean(antecedentBebeDto.getTetine()),
-                        displayString(antecedentBebeDto.getTypeRespiration()),
-                        displayBoolean(antecedentBebeDto.getPresenceBruitsArticulaires()),
-                        displayBoolean(antecedentBebeDto.getTics()),
+                        DataUtil.displayString(antecedentBebeDto.getMaternite()),
+                        DataUtil.displayFloat(antecedentBebeDto.getPerimetreCranien()),
+                        DataUtil.displayFloat(antecedentBebeDto.getApgar()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getDepassementDeTerme()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getPrematurite()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getDeformationDuCrane()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getBosseSeroSanguine()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getCephalhematome()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getParalysieObstetricaleDuPlexusBrachial()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getParalysieFaciale()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getFractureClavicule()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getDysplasieHanche()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getPlagiocephalie()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getTorticolis()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getRefluxGastroOesophagien()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getColiques()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getAllaitementMaternelle()),
+                        DataUtil.displayInt(antecedentBebeDto.getEfficaciteSuccion()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getSucagePouce()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getTetine()),
+                        DataUtil.displayString(antecedentBebeDto.getTypeRespiration()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getPresenceBruitsArticulaires()),
+                        DataUtil.displayBoolean(antecedentBebeDto.getTics()),
                         patient);
         }
 

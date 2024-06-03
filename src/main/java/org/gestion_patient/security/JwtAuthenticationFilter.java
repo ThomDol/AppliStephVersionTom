@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.gestion_patient.Data.Data;
+import org.gestion_patient.entityDto.DataUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("successfulAuthentification");
         String clientIpAddress = request.getRemoteAddr();
         User user = (User) authResult.getPrincipal();
-        Algorithm algorithm =  Algorithm.HMAC256(Data.TokenKey);
+        Algorithm algorithm =  Algorithm.HMAC256(DataUtil.TokenKey);
         String jwtAccessToken = JWT.create().withSubject(user.getUsername()) // Définit le sujet du jeton (le nom d'utilisateur)
                 .withExpiresAt(new Date(System.currentTimeMillis()+15*60*1000)) // Définit la date d'expiration (15 minutes à partir de maintenant)
                 .withIssuer(request.getRequestURL().toString()) // Définit l'émetteur du jeton (l'URL de la requête en cours)

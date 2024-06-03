@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GrossessePostPartumDto {
+public class PostAccouchementDto {
 
     private int idGrossessePostPartum;
     private String qualiteSommeil;
@@ -22,6 +22,6 @@ public class GrossessePostPartumDto {
     private Boolean douleurAbdominales;
     private Boolean fievre;
     private String infosComplementaires;
-    private int idPatient;
+    private int idAccouchement;
 
 }

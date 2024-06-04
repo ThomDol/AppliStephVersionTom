@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.gestion_patient.crypto.Crypto;
 import org.gestion_patient.entityDto.DataUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -60,7 +61,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(algorithm);
 
         response.setContentType("application/json");
-        new ObjectMapper().writeValue(response.getOutputStream(), jwtAccessToken);
+        try {
+            new ObjectMapper().writeValue(response.getOutputStream(), Crypto.cryptService(jwtAccessToken));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

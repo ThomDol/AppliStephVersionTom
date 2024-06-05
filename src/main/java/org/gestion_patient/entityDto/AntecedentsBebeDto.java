@@ -11,9 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AntecedentBebeDto {
+public class AntecedentsBebeDto {
     private int idAntecedentBebe;
     private String dateCreation;
+    private String dateUpdate;
     private String maternite;
     private Float perimetreCranien;
     private Float apgar;

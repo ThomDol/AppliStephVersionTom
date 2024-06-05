@@ -15,6 +15,7 @@ public class GrossesseDto {
 
     private int idGrossesse;
     private String dateCreation;
+    private String dateUpdate;
     private String maternite;
     private Boolean grossesseMultiple;
     private String douleursPendantGrossesse;

@@ -2,35 +2,32 @@ package org.gestion_patient.service.impl;
 
 
 import lombok.AllArgsConstructor;
-import org.gestion_patient.entity.AntecedentBebe;
+import org.gestion_patient.entity.AntecedentsBebe;
 import org.gestion_patient.entity.Patient;
-import org.gestion_patient.entityDto.AntecedentBebeDto;
+import org.gestion_patient.entityDto.AntecedentsBebeDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
-import org.gestion_patient.exception.RessourceAlreadyexistsException;
-import org.gestion_patient.mapper.AntecedentBebeMapper;
+import org.gestion_patient.mapper.AntecedentsBebeMapper;
 import org.gestion_patient.repository.AntecedentBebeRepository;
 import org.gestion_patient.repository.PatientRepository;
-import org.gestion_patient.service.AntecedentBebeService;
+import org.gestion_patient.service.AntecedentsBebeService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class AntecedentBebeServiceImpl implements AntecedentBebeService {
+public class AntecedentsBebeServiceImpl implements AntecedentsBebeService {
     private AntecedentBebeRepository antecedentBebeRepository;
     private PatientRepository patientRepository;
 
     @Override
-    public AntecedentBebeDto create(AntecedentBebeDto antecedentBebeDto, int idPatient) {
+    public AntecedentsBebeDto create(AntecedentsBebeDto antecedentBebeDto, int idPatient) {
         Patient patient = patientRepository.findById(idPatient).orElseThrow(()->new ResourceNotFoundException("Patient with id"+idPatient+" doesn't exist"));
-        AntecedentBebe antecedentBebe = AntecedentBebeMapper.mapToAntecedentBebe(antecedentBebeDto,patient);
-        return AntecedentBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeRepository.save(antecedentBebe));
+        AntecedentsBebe antecedentBebe = AntecedentsBebeMapper.mapToAntecedentBebe(antecedentBebeDto,patient);
+        return AntecedentsBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeRepository.save(antecedentBebe));
     }
 
     @Override
-    public AntecedentBebeDto update(int idToUpdate, AntecedentBebeDto antecedentBebeDtoUpdated) {
-        AntecedentBebe antecedentBebeToUpdate = antecedentBebeRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("AntecedentBebe with id"+idToUpdate+" doesn't exist"));
+    public AntecedentsBebeDto update(int idToUpdate, AntecedentsBebeDto antecedentBebeDtoUpdated) {
+        AntecedentsBebe antecedentBebeToUpdate = antecedentBebeRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("AntecedentBebe with id"+idToUpdate+" doesn't exist"));
         if(antecedentBebeDtoUpdated.getMaternite()!=null){antecedentBebeToUpdate.setMaternite(antecedentBebeDtoUpdated.getMaternite());}
         if(antecedentBebeDtoUpdated.getPerimetreCranien()!=null){antecedentBebeToUpdate.setPerimetreCranien(antecedentBebeDtoUpdated.getPerimetreCranien());}
         if(antecedentBebeDtoUpdated.getApgar()!=null){antecedentBebeToUpdate.setApgar(antecedentBebeDtoUpdated.getApgar());}
@@ -55,15 +52,15 @@ public class AntecedentBebeServiceImpl implements AntecedentBebeService {
         if(antecedentBebeDtoUpdated.getPresenceBruitsArticulaires()!=null){antecedentBebeToUpdate.setPresenceBruitsArticulaires(antecedentBebeDtoUpdated.getPresenceBruitsArticulaires());}
         if(antecedentBebeDtoUpdated.getTics()!=null){antecedentBebeToUpdate.setTics(antecedentBebeDtoUpdated.getTics());}
 
-        AntecedentBebe antecedentBebeUpdated = antecedentBebeRepository.save(antecedentBebeToUpdate);
-        return AntecedentBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeUpdated);
+        AntecedentsBebe antecedentBebeUpdated = antecedentBebeRepository.save(antecedentBebeToUpdate);
+        return AntecedentsBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebeUpdated);
     }
 
     @Override
-    public AntecedentBebeDto getByidPatient(int id) {
-        AntecedentBebe antecedentBebe = antecedentBebeRepository.findByPatientIdPatient(id);
+    public AntecedentsBebeDto getByidPatient(int id) {
+        AntecedentsBebe antecedentBebe = antecedentBebeRepository.findByPatientIdPatient(id);
         if(antecedentBebe!=null){
-            return AntecedentBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebe);
+            return AntecedentsBebeMapper.mapToAntecedentssanteBebeDto(antecedentBebe);
         }
         else{return null;}
     }

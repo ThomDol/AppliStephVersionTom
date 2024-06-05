@@ -33,8 +33,8 @@ public class PatientMapper {
                     }
                 }).toList();
 
-        List<AntecedentBebeDto> antecedentBebeList = patient.getAntecedentBebeList().stream()
-                .map(AntecedentBebeMapper::mapToAntecedentssanteBebeDto).toList();
+        List<AntecedentsBebeDto> antecedentBebeList = patient.getAntecedentBebeList().stream()
+                .map(AntecedentsBebeMapper::mapToAntecedentssanteBebeDto).toList();
 
 
         List<GrossesseDto> grossesseList = patient.getGrossesseList().stream()
@@ -85,8 +85,8 @@ public class PatientMapper {
 
 
         if (patientDto.getAntecedentBebeList() != null) {
-            List<AntecedentBebe> antecedentBebeList = patientDto.getAntecedentBebeList().stream()
-                    .map(accouchementDto->AntecedentBebeMapper.mapToAntecedentBebe(accouchementDto,patient)).toList();
+            List<AntecedentsBebe> antecedentBebeList = patientDto.getAntecedentBebeList().stream()
+                    .map(accouchementDto-> AntecedentsBebeMapper.mapToAntecedentBebe(accouchementDto,patient)).toList();
             patient.setAntecedentBebeList(antecedentBebeList);
         }
 

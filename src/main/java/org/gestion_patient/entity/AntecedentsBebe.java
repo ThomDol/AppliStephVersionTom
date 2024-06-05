@@ -12,10 +12,10 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "antecedent_bebe", uniqueConstraints = {
+@Table(name = "antecedents_bebe", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id_patient")
 })
-public class AntecedentBebe {
+public class AntecedentsBebe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_antecedents", nullable = false)
@@ -23,6 +23,9 @@ public class AntecedentBebe {
 
     @Column(name = "date_creation", nullable = false,length=10)
     private String dateCreation;
+
+    @Column(name = "date_update", nullable = true,length=10)
+    private String dateUpdate;
 
     @Column(name = "maternite", nullable = true, length = 100)
     private String maternite;

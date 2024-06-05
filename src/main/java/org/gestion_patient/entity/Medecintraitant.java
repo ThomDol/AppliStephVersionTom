@@ -22,5 +22,9 @@ public class Medecintraitant {
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identiteDoc;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_ville", nullable = false)
+    private Lieu lieu;
+
 
 }

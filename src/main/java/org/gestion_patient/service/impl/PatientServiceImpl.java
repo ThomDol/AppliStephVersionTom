@@ -43,13 +43,13 @@ public class PatientServiceImpl implements PatientService {
         Lieu lieu = new Lieu();
         Profession profession = new Profession();
         Medecintraitant medecintraitant = new Medecintraitant();
-        if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());}
+        if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){lieu = lieuRepository.findByNomVille(patientDto.getNomVille());}
         else{lieu = null;}
         Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
         TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
         if(patientDto.getNomProfession()!=null){profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());}
         else{profession =null;}
-        if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));}
+        if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null && patientDto.getVilleMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenomAndLieuNomVille(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()),patientDto.getNomVille());}
         else{medecintraitant=null;}
         //Persisitence du patient ds la base de données
         Praticienconnecte praticienconnecte = praticienconnecteRepository.findById(idPraticienConnecte).orElseThrow(() -> new ResourceNotFoundException("Praticien not found with given Id" + idPraticienConnecte));
@@ -97,7 +97,7 @@ public class PatientServiceImpl implements PatientService {
         if(upadtedPatientDto.getCodePostal()!=null && upadtedPatientDto.getNomVille()!=null){
         patientToUpdate.setVille(lieuRepository.findByNomVilleAndCodePostal(upadtedPatientDto.getNomVille(),upadtedPatientDto.getCodePostal()));}
         if(upadtedPatientDto.getNomProfession()!=null){patientToUpdate.setProfession(professionRepository.findByLibelleProfession(upadtedPatientDto.getNomProfession()));}
-        if(upadtedPatientDto.getNomMedecinTraitant()!=null && upadtedPatientDto.getPrenomMedecinTraitant()!=null){patientToUpdate.setMedecinTraitant(medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(upadtedPatientDto.getNomMedecinTraitant()),Crypto.cryptService(upadtedPatientDto.getPrenomMedecinTraitant())));}
+        if(upadtedPatientDto.getNomMedecinTraitant()!=null && upadtedPatientDto.getPrenomMedecinTraitant()!=null && upadtedPatientDto.getVilleMedecinTraitant()!=null){patientToUpdate.setMedecinTraitant(medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenomAndLieuNomVille(Crypto.cryptService(upadtedPatientDto.getNomMedecinTraitant()),Crypto.cryptService(upadtedPatientDto.getPrenomMedecinTraitant()),upadtedPatientDto.getVilleMedecinTraitant()));}
 
         return PatientMapper.mapToPatientDto(patientRepository.save(patientToUpdate));
     }

@@ -26,6 +26,7 @@ public class PatientDto {
     private String nomTypePatient;
     private String nomMedecinTraitant;
     private String prenomMedecinTraitant;
+    private String villeMedecinTraitant;
     private String nomPatient ;
     private String prenomPatient ;
     private String email;

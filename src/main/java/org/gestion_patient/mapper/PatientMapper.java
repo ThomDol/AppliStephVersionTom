@@ -56,6 +56,7 @@ public class PatientMapper {
                 patient.getTypePatient().getNomTypePatient(),
                 patient.getMedecinTraitant()==null?null: Crypto.decryptService(patient.getMedecinTraitant().getIdentiteDoc().getNom()),
                 patient.getMedecinTraitant()==null?null:Crypto.decryptService(patient.getMedecinTraitant().getIdentiteDoc().getPrenom()),
+                patient.getMedecinTraitant()==null?null:patient.getMedecinTraitant().getLieu().getNomVille(),
                 Crypto.decryptService(patient.getIdentite().getNom()),
                 Crypto.decryptService(patient.getIdentite().getPrenom()),
                 Crypto.decryptService(patient.getIdentite().getEmail()),

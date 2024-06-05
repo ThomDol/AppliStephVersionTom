@@ -13,4 +13,5 @@ public class MedecintraitantDto {
     private int idMedecinTraitant;
     private String nomMedecinTraitant;
     private String prenomMedecinTraitant;
+    private String ville;
 }

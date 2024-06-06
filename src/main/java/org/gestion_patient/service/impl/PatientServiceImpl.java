@@ -30,30 +30,44 @@ public class PatientServiceImpl implements PatientService {
     //Creation d'un nouveau Patient
     @Override
     public PatientDto createPatient(PatientDto patientDto,int idPraticienConnecte) throws Exception {
-        //Verification si identité de la personne déjà enregistrée, si oui leve une exception. Sinon creation (Cryptage des données Dto avant comparasion, car données cryptées dans la base)
-        Personne personneEnteredNomPrenom = personneRepository.findByNomAndPrenom(Crypto.cryptService(patientDto.getNomPatient()),Crypto.cryptService(patientDto.getPrenomPatient()));
-        Personne personneEnteredEmail = personneRepository.findByEmail(Crypto.cryptService(patientDto.getEmail()));
-        if (personneEnteredNomPrenom!=null || personneEnteredEmail!=null){throw new RessourceAlreadyexistsException("Patient already exists with these information");}
-        else{Personne personne= new Personne();
-        personne.setNom(Crypto.cryptService(patientDto.getNomPatient()));
-        personne.setPrenom(Crypto.cryptService(patientDto.getPrenomPatient()));
-        personne.setEmail(Crypto.cryptService(patientDto.getEmail()));
-        Personne savedPersonne = personneRepository.save(personne);
-        //Lieu , genre, typePatient,profession, et medecinTraitant seront récupérés dans le front et crée si pas encore enregistrés avant soumission de cette requête
-        Lieu lieu = new Lieu();
-        Profession profession = new Profession();
-        Medecintraitant medecintraitant = new Medecintraitant();
-        if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());}
-        else{lieu = null;}
-        Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
-        TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
-        if(patientDto.getNomProfession()!=null){profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());}
-        else{profession =null;}
-        if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));}
+        //Verification si Patient existe déjà par nom-prenom-date naissance ou email avec ce praticien (Cryptage des données Dto avant comparasion, car données cryptées dans la base)
+        Patient patientToCreate = patientRepository.findByIdentiteNomAndIdentitePrenomAndDateNaissanceAndPraticienIdPraticien(Crypto.cryptService(patientDto.getNomPatient()),Crypto.cryptService(patientDto.getPrenomPatient()),Crypto.cryptService(patientDto.getDateNaissance()),idPraticienConnecte);
+        Patient patientToCreateEmail = patientRepository.findByIdentiteEmailAndPraticienIdPraticien(Crypto.cryptService(patientDto.getEmail()),idPraticienConnecte);
+        if(patientToCreate!=null || patientToCreateEmail!=null){throw new RessourceAlreadyexistsException("Patient already exists fot this praticien with nom and birth date, or by email");}
+        else{
+            //Verification si identité de la personne déjà enregistrée, si oui l'utilise. Sinon creation (Cryptage des données Dto avant comparasion, car données cryptées dans la base)
+            Personne personneToSave = personneRepository.findByNomAndPrenomAndEmail(Crypto.cryptService(patientDto.getNomPatient()),Crypto.cryptService(patientDto.getPrenomPatient()),Crypto.cryptService(patientDto.getEmail()));
+            if (personneToSave==null){
+                personneToSave = new Personne();
+                personneToSave.setNom(Crypto.cryptService(patientDto.getNomPatient()));
+                personneToSave.setPrenom(Crypto.cryptService(patientDto.getPrenomPatient()));
+                personneToSave.setEmail(Crypto.cryptService(patientDto.getEmail()));
+                personneRepository.save(personneToSave);}
+            //genre, typePatient, seront récupérés dans le front
+            Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
+            TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
+            //Lieu recupéré si saisi ds le front via API BAN, et enregistré ds la bdd si pas encore fait
+            Lieu lieu;
+            if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){
+                lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());
+                if(lieu==null){
+                    lieu = new Lieu();
+                    lieu.setNomVille(patientDto.getNomVille());
+                    lieu.setCodePostal(patientDto.getCodePostal());
+                    lieuRepository.save(lieu);}
+            }
+            else{lieu = null;}
+            //Profession recupéré via le front si saisie  et enregistrée en bdd si pas déjà dedans, avant soumission de cette requete
+            Profession profession;
+            if(patientDto.getNomProfession()!=null){profession = professionRepository.findByLibelleProfession(patientDto.getNomProfession());}
+            else{profession =null;}
+         //Medecin traitant récupéré ds le front si saisi, et enregistré en bdd si pas déjà dedans, avant soumission de cette requete
+            Medecintraitant medecintraitant;
+            if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenom(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()));}
         else{medecintraitant=null;}
         //Persisitence du patient ds la base de données
         Praticienconnecte praticienconnecte = praticienconnecteRepository.findById(idPraticienConnecte).orElseThrow(() -> new ResourceNotFoundException("Praticien not found with given Id" + idPraticienConnecte));
-        Patient patientTSave = PatientMapper.mapToPatient(patientDto, lieu, genre, profession, typePatient, medecintraitant, savedPersonne, praticienconnecte);
+        Patient patientTSave = PatientMapper.mapToPatient(patientDto, lieu, genre, profession, typePatient, medecintraitant, personneToSave, praticienconnecte);
         return PatientMapper.mapToPatientDto(patientRepository.save(patientTSave));}
 
     }

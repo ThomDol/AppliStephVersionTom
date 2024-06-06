@@ -1,16 +1,17 @@
 package org.gestion_patient.mapper;
 
-import org.gestion_patient.entity.AntecedentBebe;
+import org.gestion_patient.entity.AntecedentsBebe;
 import org.gestion_patient.entity.Patient;
-import org.gestion_patient.entityDto.AntecedentBebeDto;
+import org.gestion_patient.entityDto.AntecedentsBebeDto;
 import org.gestion_patient.entityDto.DataUtil;
 
-public class AntecedentBebeMapper {
+public class AntecedentsBebeMapper {
 
-        public static AntecedentBebeDto mapToAntecedentssanteBebeDto (AntecedentBebe antecedentBebe)  {
-                return new AntecedentBebeDto(
+        public static AntecedentsBebeDto mapToAntecedentssanteBebeDto (AntecedentsBebe antecedentBebe)  {
+                return new AntecedentsBebeDto(
                         antecedentBebe.getIdAntecedentBebe(),
                         antecedentBebe.getDateCreation(),
+                        antecedentBebe.getDateUpdate(),
                         displayString(antecedentBebe.getMaternite()),
                         displayFloat(antecedentBebe.getPerimetreCranien()),
                         displayFloat(antecedentBebe.getApgar()),
@@ -36,10 +37,11 @@ public class AntecedentBebeMapper {
                         displayBoolean(antecedentBebe.getTics()),
                         antecedentBebe.getPatient().getIdPatient());
         }
-        public static AntecedentBebe mapToAntecedentBebe (AntecedentBebeDto antecedentBebeDto, Patient patient){
-                return new AntecedentBebe(
+        public static AntecedentsBebe mapToAntecedentBebe (AntecedentsBebeDto antecedentBebeDto, Patient patient){
+                return new AntecedentsBebe(
                         antecedentBebeDto.getIdAntecedentBebe(),
                         antecedentBebeDto.getDateCreation(),
+                        antecedentBebeDto.getDateUpdate(),
                         DataUtil.displayString(antecedentBebeDto.getMaternite()),
                         DataUtil.displayFloat(antecedentBebeDto.getPerimetreCranien()),
                         DataUtil.displayFloat(antecedentBebeDto.getApgar()),

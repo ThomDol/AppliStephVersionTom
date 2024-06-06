@@ -9,6 +9,7 @@ public class GrossesseMapper {
         return new GrossesseDto(
                 grossesse.getIdGrossesse(),
                 grossesse.getDateCreation(),
+                grossesse.getDateUpdate(),
                 grossesse.getMaternite(),
                 displayBoolean(grossesse.getGrossesseMultiple()),
                 displayString(grossesse.getDouleursPendantGrossesse()),
@@ -34,6 +35,7 @@ public class GrossesseMapper {
         return new Grossesse(
                 grossesseDto.getIdGrossesse(),
                 grossesseDto.getDateCreation(),
+                grossesseDto.getDateUpdate(),
                 grossesseDto.getMaternite(),
                 displayBoolean(grossesseDto.getGrossesseMultiple()),
                 displayString(grossesseDto.getDouleursPendantGrossesse()),

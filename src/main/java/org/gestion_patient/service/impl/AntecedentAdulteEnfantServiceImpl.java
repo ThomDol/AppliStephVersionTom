@@ -3,18 +3,14 @@ package org.gestion_patient.service.impl;
 import lombok.AllArgsConstructor;
 import org.gestion_patient.crypto.Crypto;
 import org.gestion_patient.entity.AntecedentAdulteEnfant;
-import org.gestion_patient.entity.AntecedentBebe;
 import org.gestion_patient.entity.Patient;
 import org.gestion_patient.entityDto.AntecedentAdulteEnfantDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
-import org.gestion_patient.exception.RessourceAlreadyexistsException;
 import org.gestion_patient.mapper.AntecedentAdulteEnfantMapper;
 import org.gestion_patient.repository.AntecedentAdulteEnfantRepository;
 import org.gestion_patient.repository.PatientRepository;
 import org.gestion_patient.service.AntecedentAdulteEnfantService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor

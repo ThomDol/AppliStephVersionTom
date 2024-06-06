@@ -59,7 +59,7 @@ public class Patient {
     private List<Rendezvous> rendezvousList=new ArrayList<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AntecedentBebe> antecedentBebeList= new ArrayList<>();
+    private List<AntecedentsBebe> antecedentBebeList= new ArrayList<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AntecedentAdulteEnfant> antecedentAdulteEnfantList= new ArrayList<>();

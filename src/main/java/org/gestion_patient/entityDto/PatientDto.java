@@ -1,13 +1,10 @@
 package org.gestion_patient.entityDto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.gestion_patient.entity.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -26,10 +23,11 @@ public class PatientDto {
     private String nomTypePatient;
     private String nomMedecinTraitant;
     private String prenomMedecinTraitant;
+    private String villeMedecinTraitant;
     private String nomPatient ;
     private String prenomPatient ;
     private String email;
-    private List<AntecedentBebeDto> antecedentBebeList;
+    private List<AntecedentsBebeDto> antecedentBebeList;
     private List<AntecedentAdulteEnfantDto> antecedentAdulteEnfantList;
     private List<GrossesseDto> grossesseList;
     private List<AccouchementDto> accouchementList;

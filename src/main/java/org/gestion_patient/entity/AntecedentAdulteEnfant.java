@@ -67,7 +67,7 @@ public class AntecedentAdulteEnfant {
     @Column(name = "ant_notes_diverses",columnDefinition = "TEXT", nullable = true)
     private String antNotesDiverses;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
 

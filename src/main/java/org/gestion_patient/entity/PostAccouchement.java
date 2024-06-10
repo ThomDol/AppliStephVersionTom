@@ -48,7 +48,7 @@ public class PostAccouchement {
     @Column(name = "infos_complementaires", nullable = true, length = 200)
     private String infosComplementaires;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_accouchement", nullable = false)
     private Accouchement accouchement;
 

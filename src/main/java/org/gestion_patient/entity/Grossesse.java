@@ -78,7 +78,7 @@ public class Grossesse {
     @Column(name = "mastose", nullable = true)
     private Boolean mastose;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
 }

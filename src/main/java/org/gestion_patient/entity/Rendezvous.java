@@ -39,7 +39,7 @@ public class Rendezvous {
     @Column(name = "nom_courrier", nullable = true)
     private String nomCourrier;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private  Patient patient;
 

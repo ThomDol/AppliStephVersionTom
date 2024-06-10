@@ -97,7 +97,7 @@ public class AntecedentsBebe {
     @Column(name = "tics", nullable = true)
     private Boolean tics;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
 

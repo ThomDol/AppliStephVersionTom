@@ -27,34 +27,34 @@ public class Patient {
     @Column(name = "tel", nullable = true, length = 80)
     private String tel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_ville", nullable = true)
     private Lieu ville;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_genre", nullable = false)
     private Genre genre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_profession", nullable = true)
     private Profession profession;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_type_patient", nullable = false)
     private TypePatient typePatient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_medecin_traitant", nullable = true)
     private Medecintraitant medecinTraitant;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 
     @Column(name = "email",nullable=true, length = 80)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_praticien", nullable = false)
     private Praticienconnecte praticien;
 

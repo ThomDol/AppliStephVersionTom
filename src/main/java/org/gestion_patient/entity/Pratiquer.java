@@ -17,12 +17,12 @@ public class Pratiquer {
     private PratiquerId idPratiquer;
 
     @MapsId("idSport")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_Sport", nullable = false)
     private Sport sport;
 
     @MapsId("idPatient")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
 

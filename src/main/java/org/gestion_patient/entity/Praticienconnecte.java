@@ -24,19 +24,19 @@ public class Praticienconnecte {
     @Column(name = "password", nullable = false, length = 80)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_role", nullable = false)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_ville", nullable = false)
     private Lieu ville;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_infos_professionnelles", nullable = false)
     private Infosprofessionnelles infosProfessionnelles;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 

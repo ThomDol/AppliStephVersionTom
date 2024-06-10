@@ -68,7 +68,7 @@ public class Accouchement {
     @Column(name = "notes_diverses", nullable = true, length = 200)
     private String notesDiverses;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
 

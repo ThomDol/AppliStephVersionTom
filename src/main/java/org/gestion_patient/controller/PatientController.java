@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/patient")
 public class PatientController {
     private PatientService patientService;
-  
+
 
     @PostMapping("/{idPraticienConnecte}")
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto,@PathVariable int idPraticienConnecte) throws Exception {

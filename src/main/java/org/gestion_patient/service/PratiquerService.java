@@ -1,6 +1,5 @@
 package org.gestion_patient.service;
 
-import org.gestion_patient.entityDto.MesurerDto;
 import org.gestion_patient.entityDto.PratiquerDto;
 import org.gestion_patient.entityDto.SportDto;
 

@@ -13,12 +13,13 @@ import java.time.LocalDate;
 @AllArgsConstructor @NoArgsConstructor
 public class PhysiqueDto {
     private int idPhysique;
+    private String dateMesure;
     private Float poids;
     private Float taille;
     private Boolean droitier;
     private Boolean lunettes;
     private Boolean dentaire;
-    private String dateMesure;
+    private int idPatient;
 
 
 }

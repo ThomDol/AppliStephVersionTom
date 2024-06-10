@@ -22,6 +22,9 @@ public class Physique {
     @Column(name = "idPhysique", nullable = false)
     private int idPhysique;
 
+    @Column(name = "date_mesure", nullable = false)
+    private String dateMesure;
+
     @Column(name = "poids", nullable = true)
     private Float poids;
 
@@ -34,17 +37,12 @@ public class Physique {
     @Column(name = "lunettes", nullable = true)
     private Boolean lunettes;
 
-    @Column(name = "semelle", nullable = true)
-    private Boolean semelle;
-
     @Column(name = "dentaire", nullable = true)
     private Boolean dentaire;
 
-    @Column(name = "date_mesure", nullable = false)
-    private String dateMesure;
-
-    @ManyToOne(optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "id_patient", nullable = false)
     private Patient patient;
+
 
 }

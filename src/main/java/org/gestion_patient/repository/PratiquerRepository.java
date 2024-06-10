@@ -1,6 +1,5 @@
 package org.gestion_patient.repository;
 
-import org.gestion_patient.entity.Mesurer;
 import org.gestion_patient.entity.Pratiquer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

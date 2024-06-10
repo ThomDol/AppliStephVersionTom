@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PhysiqueRepository extends JpaRepository<Physique,Integer> {
-    Physique findByDateMesure(String dateMesure);
+    List<Physique> findAllByPatientIdPatient(int idPatient);
 }

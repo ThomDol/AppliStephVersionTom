@@ -13,7 +13,6 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/praticien")
 public class PraticienConnecteController {
     private PraticienConnecteService praticienConnecteService;
 
@@ -26,25 +25,25 @@ public class PraticienConnecteController {
     }
 
 
-    @PostMapping
+    @PostMapping("/praticien")
     public ResponseEntity<PraticienconnecteDto> createNewPraticien(@RequestBody PraticienconnecteDto praticienconnecteDto) throws Exception {
         PraticienconnecteDto praticienDtoSaved = praticienConnecteService.create(praticienconnecteDto);
         return new ResponseEntity<>(praticienDtoSaved, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/praticien")
     public ResponseEntity<List<PraticienconnecteDto>> getAllPraticien(){
         List<PraticienconnecteDto> praticiens = praticienConnecteService.findAll();
         return new ResponseEntity<>(praticiens,HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/praticien/{id}")
     public ResponseEntity<PraticienconnecteDto> getPraticienById(@PathVariable int id) throws Exception {
         PraticienconnecteDto praticienconnecteDto = praticienConnecteService.findById(id);
         return new ResponseEntity<>(praticienconnecteDto,HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/praticien/{id}")
     public ResponseEntity<PraticienconnecteDto> updatePraticien(@PathVariable int id,@RequestBody PraticienconnecteDto praticienconnecteDto) throws Exception {
         PraticienconnecteDto updatedPraticien = praticienConnecteService.update(id,praticienconnecteDto);
         return new ResponseEntity<>(updatedPraticien,HttpStatus.OK);

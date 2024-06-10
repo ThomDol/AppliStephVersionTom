@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -60,18 +61,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("ip", clientIpAddress) // Ajoute une réclamation personnalisée pour l'adresse IP du client
                 .sign(algorithm);
 
+        Map<String,String> idToken = new HashMap<>();
+        idToken.put("accessToken", jwtAccessToken);
         response.setContentType("application/json");
-        try {
-            new ObjectMapper().writeValue(response.getOutputStream(), Crypto.cryptService(jwtAccessToken));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        new ObjectMapper().writeValue(response.getOutputStream(),idToken);
+    }
 
     }
 
 
 
-}
+
 
 
 

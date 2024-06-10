@@ -48,9 +48,9 @@ public class SecurityConfig {
 
         http.csrf(csrf->csrf.disable())
             .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
-            //.addFilter(new JwtAuthenticationFilter(authenticationManager(authConfiguration)))
-            //.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+            .addFilter(new JwtAuthenticationFilter(authenticationManager(authConfiguration)))
+            .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

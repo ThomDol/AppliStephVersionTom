@@ -40,9 +40,8 @@ public class Praticienconnecte {
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 
-    @OneToMany(mappedBy = "praticien", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Patient> patientList=new ArrayList<>();
-
+    @Column(name = "email",nullable=false, length = 80)
+    private String email;
 
 
 

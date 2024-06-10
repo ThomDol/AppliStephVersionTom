@@ -19,12 +19,18 @@ import java.util.List;
 @RequestMapping("/patient")
 public class PatientController {
     private PatientService patientService;
-    private PraticienconnecteRepository praticienconnecteRepository;
+  
 
     @PostMapping("/{idPraticienConnecte}")
     public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto,@PathVariable int idPraticienConnecte) throws Exception {
         PatientDto patientSaved = patientService.createPatient(patientDto,idPraticienConnecte);
         return new ResponseEntity<>(patientSaved, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PatientDto>>getAllPatient (){
+        List<PatientDto> patients = patientService.getAllPatient();
+        return new ResponseEntity<>(patients,HttpStatus.OK);
     }
 
     @GetMapping("/all/{idPraticienConnecte}")

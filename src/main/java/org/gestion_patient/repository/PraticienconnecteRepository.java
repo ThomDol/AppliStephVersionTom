@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PraticienconnecteRepository extends JpaRepository<Praticienconnecte,Integer> {
-    Praticienconnecte findByIdentiteEmail (String email);
+    Praticienconnecte findByEmail(String email);
 }

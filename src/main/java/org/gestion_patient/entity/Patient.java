@@ -22,7 +22,7 @@ public class Patient {
     private int idPatient;
 
     @Column(name = "date_naissance", nullable = false)
-    private String dateNaissance="00/00/0000";
+    private String dateNaissance;
 
     @Column(name = "tel", nullable = true, length = 80)
     private String tel;
@@ -51,33 +51,13 @@ public class Patient {
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 
+    @Column(name = "email",nullable=true, length = 80)
+    private String email;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_praticien", nullable = false)
     private Praticienconnecte praticien;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rendezvous> rendezvousList=new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AntecedentsBebe> antecedentBebeList= new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AntecedentAdulteEnfant> antecedentAdulteEnfantList= new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Accouchement> accouchementList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Grossesse> grossesseList = new ArrayList<>();
-
-
-    @ManyToMany
-    @JoinTable(
-            name = "mesurer",
-            joinColumns = @JoinColumn(name = "id_patient"),
-            inverseJoinColumns = @JoinColumn(name = "id_physique")
-    )
-    private List<Physique> physiqueList = new ArrayList<>();
 
 
     @ManyToMany

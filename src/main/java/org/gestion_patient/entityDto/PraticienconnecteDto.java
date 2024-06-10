@@ -24,6 +24,6 @@ public class PraticienconnecteDto {
     private String nomPraticienConnecte;
     private String prenomPraticienConnecte;
     private String email;
-    private List<PatientDto> patientList;
+
 
 }

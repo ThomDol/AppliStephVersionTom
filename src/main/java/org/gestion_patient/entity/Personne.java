@@ -24,9 +24,4 @@ public class Personne {
     @Column(name = "prenom", nullable = false, length = 80)
     private String prenom;
 
-    @Column(name = "email", length = 80)
-    private String email;
-
-
-
 }

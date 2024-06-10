@@ -43,6 +43,8 @@ public class Physique {
     @Column(name = "date_mesure", nullable = false)
     private String dateMesure;
 
-    @ManyToMany(mappedBy = "physiqueList")
-    private List<Patient> patientList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_patient", nullable = false)
+    private Patient patient;
+
 }

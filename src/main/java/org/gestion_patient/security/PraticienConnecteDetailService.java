@@ -1,12 +1,8 @@
 package org.gestion_patient.security;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.gestion_patient.crypto.Crypto;
-import org.gestion_patient.entity.Praticienconnecte;
-import org.gestion_patient.entityDto.PraticienconnecteDto;
-import org.gestion_patient.service.PraticienConnecteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.gestion_patient.entityDto.PraticienDto;
+import org.gestion_patient.service.PraticienService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,14 +19,14 @@ import java.util.Collection;
 public class PraticienConnecteDetailService implements UserDetailsService {
 
 
-    private PraticienConnecteService praticienConnecteService;
+    private PraticienService praticienConnecteService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         try {
             //Charger l'utilisateur lié à cet email
-            PraticienconnecteDto praticienconnecteDto = praticienConnecteService.loadByEmail(email);
+            PraticienDto praticienconnecteDto = praticienConnecteService.loadByEmail(email);
             if (praticienconnecteDto == null) {
                 throw new UsernameNotFoundException("User not found with email: " + email);
             }

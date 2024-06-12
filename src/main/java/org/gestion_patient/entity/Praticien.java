@@ -6,16 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "praticienconnecte")
-public class Praticienconnecte {
+public class Praticien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_praticien", nullable = false)
@@ -23,6 +20,10 @@ public class Praticienconnecte {
 
     @Column(name = "password", nullable = false, length = 80)
     private String password;
+
+    @Column(name = "username",unique = true, nullable = false, length = 80)
+    private String username;
+
 
     @ManyToOne( optional = false)
     @JoinColumn(name = "id_role", nullable = false)
@@ -40,8 +41,7 @@ public class Praticienconnecte {
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 
-    @Column(name = "email",nullable=false, length = 80)
-    private String email;
+
 
 
 

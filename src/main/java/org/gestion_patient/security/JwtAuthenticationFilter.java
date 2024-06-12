@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         User user = (User) authResult.getPrincipal();
         Algorithm algorithm =  Algorithm.HMAC256(DataUtil.TokenKey);
         String jwtAccessToken = JWT.create().withSubject(user.getUsername()) // Définit le sujet du jeton (le nom d'utilisateur)
-                .withExpiresAt(new Date(System.currentTimeMillis()+15*60*1000)) // Définit la date d'expiration (15 minutes à partir de maintenant)
+                .withExpiresAt(new Date(System.currentTimeMillis()+1*60*1000)) // Définit la date d'expiration (15 minutes à partir de maintenant)
                 .withIssuer(request.getRequestURL().toString()) // Définit l'émetteur du jeton (l'URL de la requête en cours)
                 .withClaim("roles",user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                 .withClaim("ip", clientIpAddress) // Ajoute une réclamation personnalisée pour l'adresse IP du client

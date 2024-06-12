@@ -24,9 +24,6 @@ public class Patient {
     @Column(name = "date_naissance", nullable = false)
     private String dateNaissance;
 
-    @Column(name = "tel", nullable = true, length = 80)
-    private String tel;
-
     @ManyToOne
     @JoinColumn(name = "id_ville", nullable = true)
     private Lieu ville;
@@ -51,12 +48,9 @@ public class Patient {
     @JoinColumn(name = "id_identite", nullable = false)
     private Personne identite;
 
-    @Column(name = "email",nullable=true, length = 80)
-    private String email;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_praticien", nullable = false)
-    private Praticienconnecte praticien;
+    private Praticien praticien;
 
 
 

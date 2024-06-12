@@ -24,4 +24,10 @@ public class Personne {
     @Column(name = "prenom", nullable = false, length = 80)
     private String prenom;
 
+    @Column(name = "email",nullable=true, length = 150)
+    private String email;
+
+    @Column(name = "tel", nullable = true, length = 80)
+    private String tel;
+
 }

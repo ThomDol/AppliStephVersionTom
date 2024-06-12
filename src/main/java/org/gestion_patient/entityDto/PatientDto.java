@@ -15,7 +15,6 @@ public class PatientDto {
 
     private int idPatient;
     private String dateNaissance;
-    private String tel;
     private String nomVille;
     private String codePostal;
     private String nomGenre;
@@ -27,6 +26,7 @@ public class PatientDto {
     private String nomPatient ;
     private String prenomPatient ;
     private String email;
+    private String tel;
 
 }
 

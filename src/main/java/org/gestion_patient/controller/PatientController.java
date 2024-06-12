@@ -1,12 +1,7 @@
 package org.gestion_patient.controller;
 
 import lombok.AllArgsConstructor;
-import org.gestion_patient.entity.Patient;
-import org.gestion_patient.entity.Praticienconnecte;
 import org.gestion_patient.entityDto.PatientDto;
-import org.gestion_patient.exception.ResourceNotFoundException;
-import org.gestion_patient.mapper.PatientMapper;
-import org.gestion_patient.repository.PraticienconnecteRepository;
 import org.gestion_patient.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

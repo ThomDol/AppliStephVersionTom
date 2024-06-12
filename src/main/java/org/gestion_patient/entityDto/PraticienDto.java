@@ -1,21 +1,19 @@
 package org.gestion_patient.entityDto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PraticienconnecteDto {
+public class PraticienDto {
 
     private int idPraticien;
     private String password;
+    private String username;
     private String nomRole;
     private String nomVille;
     private String codePostal;
@@ -24,6 +22,7 @@ public class PraticienconnecteDto {
     private String nomPraticienConnecte;
     private String prenomPraticienConnecte;
     private String email;
+    private String tel;
 
 
 }

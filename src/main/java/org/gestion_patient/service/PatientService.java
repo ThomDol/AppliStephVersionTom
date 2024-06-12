@@ -1,14 +1,12 @@
 package org.gestion_patient.service;
 
-import org.gestion_patient.entity.Praticienconnecte;
 import org.gestion_patient.entityDto.PatientDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 public interface PatientService {
-    PatientDto createPatient(PatientDto patientDto, int idPraticienConnecte) throws Exception;
+    PatientDto createPatient(PatientDto patientDto, int idPraticien) throws Exception;
 
     List<PatientDto> getAllPatientByPraticien(int idPraticien);
 

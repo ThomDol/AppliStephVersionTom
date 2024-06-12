@@ -2,40 +2,39 @@ package org.gestion_patient.mapper;
 
 import org.gestion_patient.crypto.Crypto;
 import org.gestion_patient.entity.*;
-import org.gestion_patient.entityDto.PatientDto;
-import org.gestion_patient.entityDto.PraticienconnecteDto;
-import org.gestion_patient.entityDto.SportDto;
-
-import java.util.List;
+import org.gestion_patient.entityDto.DataUtil;
+import org.gestion_patient.entityDto.PraticienDto;
 
 public class PraticienConnecteMapper {
-    public static PraticienconnecteDto mapToPraticienConnecteDto (Praticienconnecte praticienConnecte) throws Exception {
+    public static PraticienDto mapToPraticienConnecteDto (Praticien praticien) throws Exception {
 
 
-        return new PraticienconnecteDto(
-                praticienConnecte.getIdPraticien(),
-                praticienConnecte.getPassword(),
-                praticienConnecte.getRole().getNomRole(),
-                praticienConnecte.getVille().getNomVille(),
-                praticienConnecte.getVille().getCodePostal(),
-                Crypto.decryptService(praticienConnecte.getInfosProfessionnelles().getNumAdeli()),
-                Crypto.decryptService(praticienConnecte.getInfosProfessionnelles().getNumSiret()),
-                Crypto.decryptService(praticienConnecte.getIdentite().getNom()),
-                Crypto.decryptService(praticienConnecte.getIdentite().getPrenom()),
-                Crypto.decryptService(praticienConnecte.getEmail())
+        return new PraticienDto(
+                praticien.getIdPraticien(),
+                praticien.getPassword(),
+                praticien.getUsername(),
+                praticien.getRole().getNomRole(),
+                praticien.getVille().getNomVille(),
+                praticien.getVille().getCodePostal(),
+                Crypto.decryptService(praticien.getInfosProfessionnelles().getNumAdeli()),
+                Crypto.decryptService(praticien.getInfosProfessionnelles().getNumSiret()),
+                Crypto.decryptService(praticien.getIdentite().getNom()),
+                Crypto.decryptService(praticien.getIdentite().getPrenom()),
+                Crypto.decryptService(praticien.getIdentite().getEmail()),
+                DataUtil.displayStringDecrypt(praticien.getIdentite().getTel())
 
         );
     }
 
-    public static Praticienconnecte mapToPraticienConnecte (PraticienconnecteDto praticienConnecteDto, Role role, Lieu lieu, Infosprofessionnelles infosprofessionnelles, Personne personne) throws Exception {
-        Praticienconnecte praticienconnecte = new Praticienconnecte();
-        praticienconnecte.setIdPraticien(praticienConnecteDto.getIdPraticien());
-        praticienconnecte.setPassword(praticienConnecteDto.getPassword());
+    public static Praticien mapToPraticienConnecte (PraticienDto praticienDto, Role role, Lieu lieu, Infosprofessionnelles infosprofessionnelles, Personne personne) throws Exception {
+        Praticien praticienconnecte = new Praticien();
+        praticienconnecte.setIdPraticien(praticienDto.getIdPraticien());
+        praticienconnecte.setPassword(praticienDto.getPassword());
+        praticienconnecte.setUsername(praticienDto.getUsername());
         praticienconnecte.setRole(role);
         praticienconnecte.setVille(lieu);
         praticienconnecte.setInfosProfessionnelles(infosprofessionnelles);
         praticienconnecte.setIdentite(personne);
-        praticienconnecte.setEmail(Crypto.cryptService(praticienConnecteDto.getEmail()));
         return praticienconnecte;
     }
 

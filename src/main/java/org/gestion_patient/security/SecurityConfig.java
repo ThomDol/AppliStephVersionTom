@@ -47,7 +47,7 @@ public class SecurityConfig {
             .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST,"/praticien/usernamecheck").permitAll())
             .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST,"/login").permitAll())
-            .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
             .addFilter(new JwtAuthenticationFilter(authenticationManager(authConfiguration)))
             .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 

@@ -58,7 +58,7 @@ public class PatientServiceImpl implements PatientService {
             //genre, typePatient, seront récupérés dans le front
             Genre genre = genreRepository.findByNomGenre(patientDto.getNomGenre());
             TypePatient typePatient = typePatientRepository.findTypePatientByNomTypePatient(patientDto.getNomTypePatient());
-            //Lieu recupéré si saisi ds le front via API BAN, et enregistré ds la bdd si pas encore fait
+            //Lieu recupéré si saisi ds le front via , et enregistré ds la bdd si pas encore fait
             Lieu lieu;
             if(patientDto.getNomVille()!=null && patientDto.getCodePostal()!=null){
                 lieu = lieuRepository.findByNomVilleAndCodePostal(patientDto.getNomVille(),patientDto.getCodePostal());

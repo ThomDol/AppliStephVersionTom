@@ -25,7 +25,7 @@ public class PostAccouchementController {
         return new ResponseEntity<>(postAccouchementDto, HttpStatus.OK);
     }
 
-    @GetMapping("{idAccouchement}")
+    @GetMapping("/accouchement/{idAccouchement}")
     public ResponseEntity<PostAccouchementDto> getPostAccouchementByIdAccouchement(@PathVariable int idAccouchement) {
         PostAccouchementDto postAccouchementDto  = postAccouchementService.getByIdAccouchement(idAccouchement);
         return new ResponseEntity<>(postAccouchementDto, HttpStatus.OK);

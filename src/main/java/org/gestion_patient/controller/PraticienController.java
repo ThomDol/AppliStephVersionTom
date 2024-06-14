@@ -51,9 +51,11 @@ public class PraticienController {
     }
 
     @PostMapping("/praticien/usernamecheck")
-    public ResponseEntity<PraticienDto> validateByEmail (@RequestBody PraticienDto praticienDto) throws Exception {
+    public ResponseEntity<String> validateByEmail (@RequestBody PraticienDto praticienDto) throws Exception {
+        String response="";
         PraticienDto praticienToConnect = praticienService.loadByEmail(praticienDto.getEmail());
-        return new ResponseEntity<>(praticienToConnect,HttpStatus.OK);
+        if(praticienToConnect!=null){ response = "email ok";}
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
 }

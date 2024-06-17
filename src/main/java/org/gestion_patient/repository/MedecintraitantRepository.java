@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedecintraitantRepository extends JpaRepository<Medecintraitant,Integer> {
     Medecintraitant findByIdentiteDocNomAndIdentiteDocPrenomAndLieuNomVille (String nom,String prenom,String ville);
+
 }

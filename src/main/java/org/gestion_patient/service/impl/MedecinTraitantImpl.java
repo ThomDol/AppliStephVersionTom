@@ -6,6 +6,7 @@ import org.gestion_patient.entity.Lieu;
 import org.gestion_patient.entity.Medecintraitant;
 import org.gestion_patient.entity.Personne;
 import org.gestion_patient.entityDto.MedecintraitantDto;
+import org.gestion_patient.entityDto.PatientDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
 import org.gestion_patient.exception.RessourceAlreadyexistsException;
 import org.gestion_patient.mapper.MedecinTraitantMapper;
@@ -36,6 +37,8 @@ public class MedecinTraitantImpl implements MedecinTraitantService {
             }
         }).toList();
     }
+
+
     //Decryptage pour affichage via le Mapper
     @Override
     public MedecintraitantDto findMedecintraitantById(int id) throws Exception {
@@ -76,4 +79,6 @@ public class MedecinTraitantImpl implements MedecinTraitantService {
       return MedecinTraitantMapper.mapToMedecinTraitantDto(medecintraitant);
 
     }
+
+
 }

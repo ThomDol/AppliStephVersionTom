@@ -75,8 +75,10 @@ public class PatientServiceImpl implements PatientService {
             else{profession =null;}
             //Medecin traitant récupéré ds le front si saisi, et enregistré en bdd si pas déjà dedans, avant soumission de cette requete
             Medecintraitant medecintraitant;
-            if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenomAndLieuNomVille(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()),patientDto.getNomVille());}
+            System.out.println(patientDto.getNomMedecinTraitant()+" "+patientDto.getPrenomMedecinTraitant()+" "+patientDto.getVilleMedecinTraitant());
+            if(patientDto.getNomMedecinTraitant()!=null && patientDto.getPrenomMedecinTraitant()!=null){medecintraitant = medecintraitantRepository.findByIdentiteDocNomAndIdentiteDocPrenomAndLieuNomVille(Crypto.cryptService(patientDto.getNomMedecinTraitant()), Crypto.cryptService(patientDto.getPrenomMedecinTraitant()),patientDto.getVilleMedecinTraitant());}
             else{medecintraitant=null;}
+            System.out.println(medecintraitant);
             //Persisitence du patient ds la base de données
             Praticien praticienconnecte = praticienconnecteRepository.findById(idPraticienConnecte).orElseThrow(() -> new ResourceNotFoundException("Praticien not found with given Id" + idPraticienConnecte));
             Patient patientTSave = PatientMapper.mapToPatient(patientDto, lieu, genre, profession, typePatient, medecintraitant, personneIdNewPatient, praticienconnecte);

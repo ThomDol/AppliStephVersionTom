@@ -1,6 +1,7 @@
 package org.gestion_patient.service;
 
 import org.gestion_patient.entityDto.MedecintraitantDto;
+import org.gestion_patient.entityDto.PatientDto;
 
 import java.util.List;
 
@@ -9,4 +10,5 @@ public interface MedecinTraitantService {
   MedecintraitantDto findMedecintraitantById(int id) throws Exception;
   MedecintraitantDto createMedecintraitant(MedecintraitantDto medecintraitantDto) throws Exception;
   MedecintraitantDto updateMedecinTraintant(MedecintraitantDto medecintraitantDto , int id) throws Exception;
+
 }

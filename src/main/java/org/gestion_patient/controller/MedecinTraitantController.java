@@ -2,6 +2,7 @@ package org.gestion_patient.controller;
 
 import lombok.AllArgsConstructor;
 import org.gestion_patient.entityDto.MedecintraitantDto;
+import org.gestion_patient.entityDto.PatientDto;
 import org.gestion_patient.service.MedecinTraitantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import java.util.List;
 @RequestMapping("/medecintraitant")
 public class MedecinTraitantController {
     private MedecinTraitantService medecinTraitantService;
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<MedecintraitantDto> getMedecintraitantById(@PathVariable ("id") int id) throws Exception {

@@ -6,10 +6,9 @@ import org.gestion_patient.entity.*;
 import org.gestion_patient.entityDto.PraticienDto;
 import org.gestion_patient.exception.ResourceNotFoundException;
 import org.gestion_patient.exception.RessourceAlreadyexistsException;
-import org.gestion_patient.mapper.PraticienConnecteMapper;
+import org.gestion_patient.mapper.PraticienMapper;
 import org.gestion_patient.repository.*;
 import org.gestion_patient.service.PraticienService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,7 @@ public class PraticienServiceImpl implements PraticienService {
     private LieuRepository lieuRepository;
     private InfosprofessionnelleRepository infosprofessionnelleRepository;
     private PersonneRepository personneRepository;
-    private PasswordEncoder passwordEncoder;
+
 
 
 
@@ -33,7 +32,7 @@ public class PraticienServiceImpl implements PraticienService {
         List<Praticien> praticiens=praticienRepository.findAll();
         return praticiens.stream().map(praticien-> {
             try {
-                return PraticienConnecteMapper.mapToPraticienConnecteDto(praticien);
+                return PraticienMapper.mapToPraticienConnecteDto(praticien);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -44,14 +43,14 @@ public class PraticienServiceImpl implements PraticienService {
     @Override
     public PraticienDto findById(int id) throws Exception {
         Praticien praticienconnecte=praticienRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Praticien not found with given id: " + id));
-        return PraticienConnecteMapper.mapToPraticienConnecteDto(praticienconnecte);
+        return PraticienMapper.mapToPraticienConnecteDto(praticienconnecte);
 
     }
 
     @Override
     public PraticienDto create(PraticienDto praticienDto) throws Exception {
         //Verification si personne déjà enregistrée (par son email), si oui leve une exception.(email saisi crypté avant vérification,car email crypté ds base de données)
-        Praticien praticienToSave = praticienRepository.findByIdentiteEmail(Crypto.cryptService(praticienDto.getUsername()));
+        Praticien praticienToSave = praticienRepository.findByIdentiteEmail(Crypto.cryptService(praticienDto.getEmail()));
         if(praticienToSave!=null) {
             throw new RessourceAlreadyexistsException ("Praticien already exist with this email");}
         else{
@@ -59,55 +58,52 @@ public class PraticienServiceImpl implements PraticienService {
             Infosprofessionnelles infos = infosprofessionnelleRepository.findByNumAdeliAndNumSiret(Crypto.cryptService(praticienDto.getNumAdeli()),Crypto.cryptService(praticienDto.getNumSiret()));
             if(infos!=null){ throw new RessourceAlreadyexistsException ("Info Pro already exist");}
             else{
-                //Si pas d'exception, creation des infos professionnelles et de la personne (Cryptage des données avant persistence, car pas de passage par le mapper
-                Personne personneIdNewPatient = personneRepository.findByNomAndPrenom(Crypto.cryptService(praticienDto.getNomPraticienConnecte()),Crypto.cryptService(praticienDto.getPrenomPraticienConnecte()));
-                if (personneIdNewPatient==null){
-                    personneIdNewPatient = new Personne();
-                    personneIdNewPatient.setNom(Crypto.cryptService(praticienDto.getNomPraticienConnecte()));
-                    personneIdNewPatient.setPrenom(Crypto.cryptService(praticienDto.getPrenomPraticienConnecte()));
-                    personneIdNewPatient.setEmail(Crypto.cryptService(praticienDto.getEmail()));
-                    personneIdNewPatient.setTel(Crypto.cryptService(praticienDto.getTel()));
-                    personneRepository.save(personneIdNewPatient);}
+                //Si pas d'exception, creation des infos professionnelles et de la personne (Cryptage des données avant persistence, car pas de mapper
+                Personne personneIdNewPraticien = new Personne();
+                personneIdNewPraticien.setNom(Crypto.cryptService(praticienDto.getNomPraticienConnecte().toUpperCase()));
+                personneIdNewPraticien.setPrenom(Crypto.cryptService(praticienDto.getPrenomPraticienConnecte().toUpperCase()));
+                personneIdNewPraticien.setEmail(Crypto.cryptService(praticienDto.getEmail()));
+                personneIdNewPraticien.setTel(Crypto.cryptService(praticienDto.getTel()));
+                personneRepository.save(personneIdNewPraticien);
 
                 Infosprofessionnelles infosprofessionnelles = new Infosprofessionnelles();
                 infosprofessionnelles.setNumAdeli(Crypto.cryptService(praticienDto.getNumAdeli()));
                 infosprofessionnelles.setNumSiret(Crypto.cryptService(praticienDto.getNumSiret()));
                 Infosprofessionnelles infosprofessionnellesToSave = infosprofessionnelleRepository.save(infosprofessionnelles);
 
-                //Hashage du mot de passe :
-                praticienDto.setPassword(passwordEncoder.encode(praticienDto.getPassword()));
-                 //Lieu sera récupéré dans le front et crée si pas enregistré, avant soumission de la requete create Patient
-                Lieu lieu = lieuRepository.findByNomVilleAndCodePostal(praticienDto.getNomVille(),praticienDto.getCodePostal());
+
+                //Lieu sera récupéré dans le front  si non, sera créé
+                Lieu lieu = lieuRepository.findByNomVilleAndCodePostal(praticienDto.getNomVille().toUpperCase(),praticienDto.getCodePostal());
                 if(lieu==null){
                     lieu = new Lieu();
-                    lieu.setNomVille(praticienDto.getNomVille());
+                    lieu.setNomVille(praticienDto.getNomVille().toUpperCase());
                     lieu.setCodePostal(praticienDto.getCodePostal());
                     lieuRepository.save(lieu);}
-        //Role sera récupéré dans me front (radio box -> User ou admin)
-        Role role=roleRepository.findByNomRole(praticienDto.getNomRole());
-        //Persistence du nouveau praticien avec les infos ci dessus
-                praticienToSave = PraticienConnecteMapper.mapToPraticienConnecte(praticienDto,role,lieu,infosprofessionnellesToSave,personneIdNewPatient);
+                //Role sera récupéré dans me front (radio box -> User ou admin)
+                Role role=roleRepository.findByNomRole(praticienDto.getNomRole());
+                //Persistence du nouveau praticien avec les infos ci dessus
+                praticienToSave = PraticienMapper.mapToPraticienConnecte(praticienDto,role,lieu,infosprofessionnellesToSave,personneIdNewPraticien);
 
-                return PraticienConnecteMapper.mapToPraticienConnecteDto(praticienRepository.save(praticienToSave));}}
+                return PraticienMapper.mapToPraticienConnecteDto(praticienRepository.save(praticienToSave));}}
     }
 
     @Override
     public PraticienDto update(int id, PraticienDto praticienDto) throws Exception {
         Praticien praticien = praticienRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Praticien not found with given id: " + id));
         //Nouveau Password mis à jour si modifié
-        if(praticienDto.getPassword()!=null){praticien.setPassword(passwordEncoder.encode(praticienDto.getPassword()));}
-        //Nouvelle ville mise à jour si besoin. Si pas ds base, sera créee avant soumission
+        if(praticienDto.getPassword()!=null){praticien.setPassword(praticienDto.getPassword());}
+        //Nouvelle ville mise à jour si besoin. Si pas ds base, sera créee
         Lieu lieu;
         if(praticienDto.getCodePostal()!=null && praticienDto.getNomVille()!=null){
-            lieu = lieuRepository.findByNomVilleAndCodePostal(praticienDto.getNomVille(),praticienDto.getCodePostal());
+            lieu = lieuRepository.findByNomVilleAndCodePostal(praticienDto.getNomVille().toUpperCase(),praticienDto.getCodePostal());
             if(lieu==null){
                 lieu = new Lieu();
-                lieu.setNomVille(praticienDto.getNomVille());
+                lieu.setNomVille(praticienDto.getNomVille().toUpperCase());
                 lieu.setCodePostal(praticienDto.getCodePostal());
                 lieuRepository.save(lieu);}
             praticien.setVille(lieu);}
 
-        //Recuperation des infos Personnes, et mise à jour du nom si besoin
+        //Recuperation des infos Personnes, et mise à jour si besoin
         Personne personne= praticien.getIdentite();
         if(praticienDto.getNomPraticienConnecte()!=null){
             personne.setNom(Crypto.cryptService(praticienDto.getNomPraticienConnecte()));}
@@ -118,29 +114,32 @@ public class PraticienServiceImpl implements PraticienService {
         personneRepository.save(personne);
         praticien.setIdentite(personne);
 
-        //Recuperation des informations professionnelles, et mise à jour du nom et email si besoin
+        //Recuperation des informations professionnelles, et mise à jour si besoin
+        Infosprofessionnelles infoPraticien = praticien.getInfosProfessionnelles();
         if(praticienDto.getNumAdeli()!=null && praticienDto.getNumSiret()!=null){
             Infosprofessionnelles infostoUpdate=infosprofessionnelleRepository.findByNumAdeliAndNumSiret(praticienDto.getNumAdeli(),praticienDto.getNumSiret());
-        if(infostoUpdate!=null){throw new RessourceAlreadyexistsException("infos déjà existente");}
-        else{
-            infostoUpdate = new Infosprofessionnelles();
-            infostoUpdate.setNumAdeli(Crypto.cryptService(praticienDto.getNumAdeli()));
-            infostoUpdate.setNumSiret(Crypto.cryptService(praticienDto.getNumSiret()));
-            infosprofessionnelleRepository.save(infostoUpdate);
-            praticien.setInfosProfessionnelles(infostoUpdate);}
+            if(infostoUpdate!=null){throw new RessourceAlreadyexistsException("infos déjà existente");}
+            else{
+
+                infoPraticien.setNumAdeli(Crypto.cryptService(praticienDto.getNumAdeli()));
+                infoPraticien.setNumSiret(Crypto.cryptService(praticienDto.getNumSiret()));
+                infosprofessionnelleRepository.save(infoPraticien);
+                praticien.setInfosProfessionnelles(infoPraticien);}
         }
 
         //Persisitence du praticien mis à jour
-        return PraticienConnecteMapper.mapToPraticienConnecteDto(praticienRepository.save(praticien));
+        return PraticienMapper.mapToPraticienConnecteDto(praticienRepository.save(praticien));
     }
 
     @Override
-    @Transactional //Pour éviter le problème de LazyInitializationException.indique que vous essayez d'accéder à une propriété ou une collection d'une entité qui est chargée de manière paresseuse (lazy-loaded), mais que la session Hibernate n'est plus ouverte pour effectuer le chargement. Cette exception se produit souvent dans les applications qui utilisent la couche de persistance Hibernate/JPA et peut être particulièrement courante lors de l'utilisation de transactions ou de l'accès à des entités en dehors de leur contexte de session.
+    @Transactional
+    //Pour éviter le problème de LazyInitializationException.indique que vous essayez d'accéder à une propriété ou une collection d'une entité qui est chargée de manière paresseuse (lazy-loaded), mais que la session Hibernate n'est plus ouverte pour effectuer le chargement. Cette exception se produit souvent dans les applications qui utilisent la couche de persistance Hibernate/JPA et peut être particulièrement courante lors de l'utilisation de transactions ou de l'accès à des entités en dehors de leur contexte de session.
     public PraticienDto loadByEmail(String email) throws Exception {
-       Praticien praticien =  praticienRepository.findByIdentiteEmail(Crypto.cryptService(email));
-        if(praticien!=null){return PraticienConnecteMapper.mapToPraticienConnecteDto(praticien);}
-     else {throw new ResourceNotFoundException("not found with this email "+email);}
-}
+        Praticien praticien =  praticienRepository.findByIdentiteEmail(Crypto.cryptService(email));
+        if(praticien!=null){return PraticienMapper.mapToPraticienConnecteDto(praticien);}
+        else {throw new ResourceNotFoundException("not found with this email "+email);}
+    }
+
 
 
 

@@ -5,7 +5,7 @@ import org.gestion_patient.entity.*;
 import org.gestion_patient.entityDto.DataUtil;
 import org.gestion_patient.entityDto.PraticienDto;
 
-public class PraticienConnecteMapper {
+public class PraticienMapper {
     public static PraticienDto mapToPraticienConnecteDto (Praticien praticien) throws Exception {
 
 

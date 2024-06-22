@@ -12,7 +12,6 @@ public class PraticienMapper {
         return new PraticienDto(
                 praticien.getIdPraticien(),
                 praticien.getPassword(),
-                praticien.getUsername(),
                 praticien.getRole().getNomRole(),
                 praticien.getVille().getNomVille(),
                 praticien.getVille().getCodePostal(),
@@ -30,7 +29,6 @@ public class PraticienMapper {
         Praticien praticienconnecte = new Praticien();
         praticienconnecte.setIdPraticien(praticienDto.getIdPraticien());
         praticienconnecte.setPassword(praticienDto.getPassword());
-        praticienconnecte.setUsername(praticienDto.getUsername());
         praticienconnecte.setRole(role);
         praticienconnecte.setVille(lieu);
         praticienconnecte.setInfosProfessionnelles(infosprofessionnelles);

@@ -30,6 +30,7 @@ public class GrossesseServiceImpl implements GrossesseService {
     @Override
     public GrossesseDto update(int idToUpdate, GrossesseDto grossesseDto) {
         Grossesse grossesseToUpdate = grossesseRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("Grossesse with id"+idToUpdate+" doesn't exist"));
+        grossesseToUpdate.setDateUpdate(grossesseDto.getDateUpdate());
         if(grossesseDto.getMaternite()!=null){grossesseToUpdate.setMaternite(grossesseDto.getMaternite());}
         if(grossesseDto.getGrossesseMultiple()!=null){grossesseToUpdate.setGrossesseMultiple(grossesseDto.getGrossesseMultiple());}
         if(grossesseDto.getDouleursPendantGrossesse()!=null){grossesseToUpdate.setDouleursPendantGrossesse(grossesseDto.getDouleursPendantGrossesse());}

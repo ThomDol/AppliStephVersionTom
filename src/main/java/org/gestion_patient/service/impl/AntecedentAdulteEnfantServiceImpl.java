@@ -28,7 +28,7 @@ public class AntecedentAdulteEnfantServiceImpl implements AntecedentAdulteEnfant
     @Override
     public AntecedentAdulteEnfantDto update(int idToUpdate, AntecedentAdulteEnfantDto antecedentAdulteEnfantDtoUpdated) throws Exception {
         AntecedentAdulteEnfant antecedentAdulteEnfantToUpdate = antecedentAdulteEnfantRepository.findById(idToUpdate).orElseThrow(()->new ResourceNotFoundException("AntecedentAdulteEnfant with id"+idToUpdate+" doesn't exist"));
-        antecedentAdulteEnfantToUpdate.setDateUpdate(antecedentAdulteEnfantToUpdate.getDateUpdate());
+        antecedentAdulteEnfantToUpdate.setDateUpdate(antecedentAdulteEnfantDtoUpdated.getDateUpdate());
         if(antecedentAdulteEnfantDtoUpdated.getGrossesse()!=null){antecedentAdulteEnfantToUpdate.setGrossesse(antecedentAdulteEnfantDtoUpdated.getGrossesse());}
         if(antecedentAdulteEnfantDtoUpdated.getFumeur()!=null){antecedentAdulteEnfantToUpdate.setFumeur(antecedentAdulteEnfantDtoUpdated.getFumeur());}
         if(antecedentAdulteEnfantDtoUpdated.getAllergie()!=null){antecedentAdulteEnfantToUpdate.setAllergie(antecedentAdulteEnfantDtoUpdated.getAllergie());}
